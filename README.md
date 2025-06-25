@@ -115,4 +115,13 @@ workspace/rootba/
 - The code is modular and can be extended for new algorithms or output formats.
 
 ## License
-This project is for academic and research use. Please cite appropriately if used in publications. 
+This project is for academic and research use. Please cite appropriately if used in publications.
+
+---
+
+## Update Log
+
+### 6.26 ergou branch update
+- Updated baseline deployment process
+- Rewritten README documentation
+- Updated data input and result saving methods 
