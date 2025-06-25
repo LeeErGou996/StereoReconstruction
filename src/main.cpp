@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <filesystem>
+#include <vector>
+#include <fstream>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
@@ -58,71 +61,76 @@ cv::Mat createSimpleBlendedImage(const cv::Mat& disparity, const cv::Mat& colorI
     return blended;
 }
 
-int main() {
-    std::cout << "=== Stereo Vision Processing System (with color support) ===" << std::endl;
+// Function to get base filename without extension
+std::string getBaseFilename(const std::string& filepath) {
+    std::filesystem::path path(filepath);
+    return path.stem().string();
+}
+
+// Function to process a single stereo pair
+bool processStereoPair(const std::string& leftImagePath, const std::string& rightImagePath, 
+                      const std::string& outputDir, const cv::Mat& K, const cv::Mat& distCoeffs,
+                      int numDisparities, int blockSize, FeatureType algorithm) {
     
-    // Define camera intrinsics
-    cv::Mat K = (cv::Mat_<double>(3,3) << 1758.23, 0, 953.34, 0, 1758.23, 552.29, 0, 0, 1);
-    cv::Mat distCoeffs = cv::Mat::zeros(5, 1, CV_64F);
+    std::string baseFilename = getBaseFilename(leftImagePath);
+    std::cout << "\n=== Processing stereo pair: " << baseFilename << " ===" << std::endl;
     
-    // Define stereo matching parameters
-    int numDisparities = 288;
-    int blockSize = 9;
+    // Create output directory for this pair
+    std::string pairOutputDir = outputDir + "/" + baseFilename + "/";
+    std::filesystem::create_directories(pairOutputDir);
     
-    // Change algorithm here: SIFT, SURF, ORB
-    FeatureType algorithm = FeatureType::ORB;  // Default use ORB
-    
-    // Image paths
-    std::string leftImagePath = "/config/workspace/rootba/data/left.png";
-    std::string rightImagePath = "/config/workspace/rootba/data/right.png";
-    std::string outputBasePath = "/config/workspace/rootba/test/";
-    std::string outputPath = outputBasePath + "disparity.png";
-    
-    std::cout << "\n1. Start stereo vision processing..." << std::endl;
     std::cout << "Left image: " << leftImagePath << std::endl;
     std::cout << "Right image: " << rightImagePath << std::endl;
-    std::cout << "Output path: " << outputBasePath << std::endl;
+    std::cout << "Output directory: " << pairOutputDir << std::endl;
     std::cout << "----------------------------------------" << std::endl;
     
-    // **Modification 1: Read both color and grayscale images**
-    cv::Mat imgL_color = cv::imread(leftImagePath, cv::IMREAD_COLOR);   // Color image
-    cv::Mat imgR_color = cv::imread(rightImagePath, cv::IMREAD_COLOR);  // Color image
-    cv::Mat imgL = cv::imread(leftImagePath, cv::IMREAD_GRAYSCALE);     // Grayscale image (for feature detection)
-    cv::Mat imgR = cv::imread(rightImagePath, cv::IMREAD_GRAYSCALE);    // Grayscale image (for feature detection)
+    // 保存原始缓冲区
+    std::streambuf* orig_cout = std::cout.rdbuf();
+    std::streambuf* orig_cerr = std::cerr.rdbuf();
+    // 打开log文件
+    std::ofstream log_file(pairOutputDir + "log.txt");
+    std::cout.rdbuf(log_file.rdbuf());
+    std::cerr.rdbuf(log_file.rdbuf());
+    
+    // Read images
+    cv::Mat imgL_color = cv::imread(leftImagePath, cv::IMREAD_COLOR);
+    cv::Mat imgR_color = cv::imread(rightImagePath, cv::IMREAD_COLOR);
+    cv::Mat imgL = cv::imread(leftImagePath, cv::IMREAD_GRAYSCALE);
+    cv::Mat imgR = cv::imread(rightImagePath, cv::IMREAD_GRAYSCALE);
     
     if (imgL.empty() || imgR.empty() || imgL_color.empty() || imgR_color.empty()) {
         std::cerr << "Error: Cannot read image " << leftImagePath << " or " << rightImagePath << std::endl;
-        return -1;
+        return false;
     }
     
     std::cout << "Successfully read images, size: " << imgL.size() << std::endl;
     std::cout << "Color image channels: " << imgL_color.channels() << std::endl;
     
-    // **Modification 2: Save original color images**
-    cv::imwrite(outputBasePath + "left_original.png", imgL_color);
-    cv::imwrite(outputBasePath + "right_original.png", imgR_color);
+    // Save original color images
+    cv::imwrite(pairOutputDir + "left_original.png", imgL_color);
+    cv::imwrite(pairOutputDir + "right_original.png", imgR_color);
     std::cout << "Original color images saved" << std::endl;
     
-    // Create feature detector and matcher (using grayscale images)
+    // Create feature detector and matcher
     DisparityProcessor sparseMatcher;
     cv::Ptr<cv::Feature2D> detector = sparseMatcher.createDetector(algorithm);
     if (!detector) {
         std::cerr << "Error: Cannot create feature detector" << std::endl;
-        return -1;
+        return false;
     }
     
     std::cout << "\n2. Feature detection and matching..." << std::endl;
     
-    // Feature detection and matching (using grayscale images)
+    // Feature detection and matching
     std::vector<cv::Point2f> ptsL, ptsR;
     if (!sparseMatcher.detectAndMatch(imgL, imgR, detector, ptsL, ptsR)) {
         std::cerr << "Error: Feature detection and matching failed" << std::endl;
-        return -1;
+        return false;
     }
     
     std::cout << "Successfully matched " << ptsL.size() << " feature points" << std::endl;
     
-    // **New: Visualize feature matching (color version)**
+    // Visualize feature matching
     if (!imgL_color.empty() && !imgR_color.empty() && ptsL.size() > 0) {
         std::vector<cv::KeyPoint> kpL, kpR;
         for (const auto& pt : ptsL) {
@@ -139,7 +147,7 @@ int main() {
         
         cv::Mat matchImg;
         cv::drawMatches(imgL_color, kpL, imgR_color, kpR, matches, matchImg);
-        cv::imwrite(outputBasePath + "feature_matches_color.png", matchImg);
+        cv::imwrite(pairOutputDir + "feature_matches_color.png", matchImg);
         std::cout << "Color feature matching image saved" << std::endl;
     }
     
@@ -149,7 +157,7 @@ int main() {
     cv::Mat R, t;
     if (!EightPoint::estimatePose(ptsL, ptsR, K, R, t)) {
         std::cerr << "Error: Pose estimation failed" << std::endl;
-        return -1;
+        return false;
     }
     
     std::cout << "Successfully estimated relative pose" << std::endl;
@@ -162,12 +170,12 @@ int main() {
 
     if (!denseMatcher.rectifyImages(imgL, imgR, R, t, rectL, rectR)) {
         std::cerr << "Error: Stereo rectification failed" << std::endl;
-        return -1;
+        return false;
     }
     
     std::cout << "Stereo rectification completed successfully" << std::endl;
     
-    // **New: Rectify color images**
+    // Rectify color images
     cv::Mat rectL_color, rectR_color;
     
     // Get rectification parameters
@@ -187,8 +195,8 @@ int main() {
     cv::remap(imgR_color, rectR_color, mapRx, mapRy, cv::INTER_LINEAR);
     
     // Save rectified color images
-    cv::imwrite(outputBasePath + "left_rectified.png", rectL_color);
-    cv::imwrite(outputBasePath + "right_rectified.png", rectR_color);
+    cv::imwrite(pairOutputDir + "left_rectified.png", rectL_color);
+    cv::imwrite(pairOutputDir + "right_rectified.png", rectR_color);
     std::cout << "Rectified color images saved" << std::endl;
     
     std::cout << "\n5. Disparity computation..." << std::endl;
@@ -197,180 +205,145 @@ int main() {
     cv::Mat disparity;
     if (!denseMatcher.computeDisparityMap(rectL, rectR, disparity)) {
         std::cerr << "Error: Disparity computation failed" << std::endl;
-        return -1;
+        return false;
     }
     
-    // Save traditional grayscale disparity map
+    // Save disparity map
     cv::Mat disparity8;
     disparity.convertTo(disparity8, CV_8U, 255.0/(numDisparities*16.0));
+    cv::imwrite(pairOutputDir + "disparity.png", disparity8);
     
-    if (!cv::imwrite(outputPath, disparity8)) {
-        std::cerr << "Error: Cannot save disparity map to " << outputPath << std::endl;
-        return -1;
-    }
+    // Save color disparity maps
+    cv::Mat colorDisparityJet = createSimpleColorDisparity(disparity, cv::COLORMAP_JET);
+    cv::Mat colorDisparityHot = createSimpleColorDisparity(disparity, cv::COLORMAP_HOT);
+    cv::imwrite(pairOutputDir + "disparity_color_jet.png", colorDisparityJet);
+    cv::imwrite(pairOutputDir + "disparity_color_hot.png", colorDisparityHot);
     
-    std::cout << "Successfully saved grayscale disparity map to: " << outputPath << std::endl;
+    // Save blended images
+    cv::Mat blended = createSimpleBlendedImage(disparity, rectL_color, 0.5);
+    cv::Mat blendedStrong = createSimpleBlendedImage(disparity, rectL_color, 0.7);
+    cv::imwrite(pairOutputDir + "disparity_blended.png", blended);
+    cv::imwrite(pairOutputDir + "disparity_blended_strong.png", blendedStrong);
     
-    // **New: Create and save color disparity map**
-    cv::Mat colorDisparity = createSimpleColorDisparity(disparity, cv::COLORMAP_JET);
-    cv::imwrite(outputBasePath + "disparity_color_jet.png", colorDisparity);
-    
-    cv::Mat colorDisparity2 = createSimpleColorDisparity(disparity, cv::COLORMAP_HOT);
-    cv::imwrite(outputBasePath + "disparity_color_hot.png", colorDisparity2);
-    
-    // **New: Create and save blended image**
-    if (!rectL_color.empty()) {
-        cv::Mat blended = createSimpleBlendedImage(disparity, rectL_color, 0.4);
-        cv::imwrite(outputBasePath + "disparity_blended.png", blended);
-        
-        cv::Mat blended2 = createSimpleBlendedImage(disparity, rectL_color, 0.6);
-        cv::imwrite(outputBasePath + "disparity_blended_strong.png", blended2);
-        
-        std::cout << "Successfully saved color disparity map and blended image" << std::endl;
-    }
+    std::cout << "Successfully saved disparity map and related outputs" << std::endl;
     
     std::cout << "\n6. Depth map computation..." << std::endl;
-
-    // Compute and get depth map
-    std::string depthImagePath = outputBasePath + "depth.png";
+    
+    // Depth computation
     cv::Mat Q_matrix = denseMatcher.getQMatrix();
-    cv::Mat depthMap; // Mat object for receiving depth map
+    cv::Mat depthMap;
+    std::string depthImagePath = pairOutputDir + "depth.png";
     if (!Depth::computeDepthMap(disparity, Q_matrix, depthMap, depthImagePath)) {
-        std::cerr << "Error: Cannot compute depth map!" << std::endl;
-        return -1;
+        std::cerr << "Error: Depth computation failed" << std::endl;
+        return false;
     }
-
-    // Save depth map to file (normalized and original)
-    if (depthMap.empty() || depthMap.type() != CV_32F) {
-        std::cerr << "Error: Depth map is empty or incorrect type (needs CV_32F), cannot save." << std::endl;
-        return -1;
+    
+    // Save depth maps
+    cv::imwrite(pairOutputDir + "depth.png", depthMap);
+    
+    // Create color depth map（先归一化并转为8位）
+    cv::Mat normDepth, colorDepthMap;
+    double minVal, maxVal;
+    cv::minMaxLoc(depthMap, &minVal, &maxVal, nullptr, nullptr);
+    depthMap.convertTo(normDepth, CV_8UC1, 255.0 / (maxVal - minVal), -minVal * 255.0 / (maxVal - minVal));
+    cv::applyColorMap(normDepth, colorDepthMap, cv::COLORMAP_JET);
+    cv::imwrite(pairOutputDir + "depth_color.png", colorDepthMap);
+    
+    // Save raw depth data
+    cv::Mat depthFloat;
+    depthMap.convertTo(depthFloat, CV_32F);
+    cv::imwrite(pairOutputDir + "depth_raw.exr", depthFloat);
+    
+    std::cout << "Successfully saved depth maps" << std::endl;
+    
+    std::cout << "\n7. Mesh reconstruction..." << std::endl;
+    
+    // Mesh reconstruction
+    std::string meshPath = pairOutputDir + "reconstructed_mesh.ply";
+    if (!MeshReconstruction::reconstructAndSaveMesh(depthMap, rectL_color, meshPath)) {
+        std::cerr << "Error: Mesh reconstruction failed" << std::endl;
+        return false;
     }
+    
+    std::cout << "Successfully saved 3D mesh to: " << meshPath << std::endl;
+    
+    std::cout << "\n8. Processing completed for " << baseFilename << "!" << std::endl;
+    std::cout << "Output files saved to: " << pairOutputDir << std::endl;
+    
+    // 恢复输出
+    std::cout.rdbuf(orig_cout);
+    std::cerr.rdbuf(orig_cerr);
+    
+    return true;
+}
 
-    cv::Mat validDepthMask;
-    cv::bitwise_and(
-        depthMap > 0,           // Depth is positive
-        depthMap < 10000.0f,    // Depth within reasonable range
-        validDepthMask
-    );
-    depthMap.setTo(0, ~validDepthMask); // Set invalid depth to 0
-
-    cv::Mat normalizedDepthMap;
-    if (cv::countNonZero(validDepthMask) > 0) {
-        std::vector<float> validDepths;
-        for (int r = 0; r < depthMap.rows; ++r) {
-            for (int c = 0; c < depthMap.cols; ++c) {
-                if (validDepthMask.at<uchar>(r, c)) {
-                    validDepths.push_back(depthMap.at<float>(r, c));
-                }
+int main() {
+    std::cout << "=== Stereo Vision Processing System (Batch Processing) ===" << std::endl;
+    
+    // Define camera intrinsics
+    cv::Mat K = (cv::Mat_<double>(3,3) << 1758.23, 0, 953.34, 0, 1758.23, 552.29, 0, 0, 1);
+    cv::Mat distCoeffs = cv::Mat::zeros(5, 1, CV_64F);
+    
+    // Define stereo matching parameters
+    int numDisparities = 288;
+    int blockSize = 9;
+    
+    // Change algorithm here: SIFT, SURF, ORB
+    FeatureType algorithm = FeatureType::ORB;  // Default use ORB
+    
+    // Directory paths
+    std::string leftDir = "../data/left/";
+    std::string rightDir = "../data/right/";
+    std::string outputDir = "../test/";
+    
+    std::cout << "Left images directory: " << leftDir << std::endl;
+    std::cout << "Right images directory: " << rightDir << std::endl;
+    std::cout << "Output directory: " << outputDir << std::endl;
+    
+    // Create output directory
+    std::filesystem::create_directories(outputDir);
+    
+    // Get all files from left directory
+    std::vector<std::string> leftFiles;
+    for (const auto& entry : std::filesystem::directory_iterator(leftDir)) {
+        if (entry.is_regular_file()) {
+            std::string ext = entry.path().extension().string();
+            if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".bmp" || ext == ".tiff") {
+                leftFiles.push_back(entry.path().string());
             }
+        }
+    }
+    
+    if (leftFiles.empty()) {
+        std::cerr << "Error: No image files found in left directory: " << leftDir << std::endl;
+        return -1;
+    }
+    
+    std::cout << "Found " << leftFiles.size() << " left images" << std::endl;
+    
+    // Process each stereo pair
+    int successCount = 0;
+    for (const auto& leftFile : leftFiles) {
+        std::string baseFilename = getBaseFilename(leftFile);
+        std::string rightFile = rightDir + baseFilename + ".png"; // Assuming same extension
+        
+        // Check if corresponding right image exists
+        if (!std::filesystem::exists(rightFile)) {
+            std::cout << "Warning: No corresponding right image found for " << baseFilename << std::endl;
+            continue;
         }
         
-        if (!validDepths.empty()) {
-            std::sort(validDepths.begin(), validDepths.end());
-            float minDepth = validDepths[0];
-            float maxDepth = validDepths[static_cast<int>(validDepths.size() * 0.98)]; // 98th percentile
-            
-            std::cout << "Depth range: " << minDepth << " - " << maxDepth << " units" << std::endl;
-            
-            normalizedDepthMap = cv::Mat::zeros(depthMap.size(), CV_8U);
-            
-            for (int r = 0; r < depthMap.rows; ++r) {
-                for (int c = 0; c < depthMap.cols; ++c) {
-                    if (validDepthMask.at<uchar>(r, c)) {
-                        float depth = depthMap.at<float>(r, c);
-                        depth = std::max(minDepth, std::min(maxDepth, depth)); // Clip to range
-                        uchar normalizedValue = static_cast<uchar>(
-                            255.0f * (depth - minDepth) / (maxDepth - minDepth)
-                        );
-                        normalizedDepthMap.at<uchar>(r, c) = normalizedValue;
-                    }
-                }
-            }
-        } else {
-            normalizedDepthMap = cv::Mat::zeros(depthMap.size(), CV_8U);
+        // Process the stereo pair
+        if (processStereoPair(leftFile, rightFile, outputDir, K, distCoeffs, 
+                             numDisparities, blockSize, algorithm)) {
+            successCount++;
         }
-    } else {
-        normalizedDepthMap = cv::Mat::zeros(depthMap.size(), CV_8U);
-        std::cerr << "Warning: No valid depth values, creating empty depth map" << std::endl;
     }
-
-    if (!cv::imwrite(depthImagePath, normalizedDepthMap)) {
-        std::cerr << "Error: Cannot save normalized depth map to " << depthImagePath << std::endl;
-        return -1;
-    }
-    std::cout << "Successfully saved normalized depth map to: " << depthImagePath << std::endl;
-
-    // **New: Create color depth map**
-    cv::Mat colorDepth;
-    cv::applyColorMap(normalizedDepthMap, colorDepth, cv::COLORMAP_JET);
-    cv::imwrite(outputBasePath + "depth_color.png", colorDepth);
-    std::cout << "Successfully saved color depth map" << std::endl;
-
-    // Save original depth map (float format)
-    std::string rawDepthPath = outputBasePath + "depth_raw.exr";
     
-    if (cv::imwrite(rawDepthPath, depthMap)) {
-        std::cout << "Successfully saved original depth map to: " << rawDepthPath << std::endl;
-    } else {
-        std::cerr << "Error: Cannot save original depth map to " << rawDepthPath << std::endl;
-        return -1;
-    }
-
-    std::cout << "\n7. Mesh reconstruction..." << std::endl;
-
-    // **Modification: Use color information for mesh reconstruction**
-    std::string meshOutputPath = outputBasePath + "reconstructed_mesh.ply";
-    std::cout << "Start 3D mesh reconstruction (including color information)..." << std::endl;
-    
-    // If MeshReconstruction supports color information, pass rectified color images
-    if (!MeshReconstruction::reconstructAndSaveMesh(depthMap, rectL_color, meshOutputPath)) {
-        std::cerr << "Error: 3D mesh reconstruction failed!" << std::endl;
-        return -1;
-    }
-    std::cout << "Successfully saved 3D mesh to: " << meshOutputPath << std::endl;
-    
-    std::cout << "\n8. Processing completed! Output file summary:" << std::endl;
-    std::cout << "========================================" << std::endl;
-    
-    std::cout << "\n📷 Original images:" << std::endl;
-    std::cout << "  - " << outputBasePath << "left_original.png" << std::endl;
-    std::cout << "  - " << outputBasePath << "right_original.png" << std::endl;
-    
-    std::cout << "\n🔧 Rectified images:" << std::endl;
-    std::cout << "  - " << outputBasePath << "left_rectified.png" << std::endl;
-    std::cout << "  - " << outputBasePath << "right_rectified.png" << std::endl;
-    
-    std::cout << "\n🎯 Feature matching:" << std::endl;
-    std::cout << "  - " << outputBasePath << "feature_matches_color.png" << std::endl;
-    
-    std::cout << "\n📊 Disparity map:" << std::endl;
-    std::cout << "  - " << outputPath << " (Grayscale)" << std::endl;
-    std::cout << "  - " << outputBasePath << "disparity_color_jet.png (Color-JET)" << std::endl;
-    std::cout << "  - " << outputBasePath << "disparity_color_hot.png (Color-HOT)" << std::endl;
-    std::cout << "  - " << outputBasePath << "disparity_blended.png (Blended image)" << std::endl;
-    std::cout << "  - " << outputBasePath << "disparity_blended_strong.png (Strong blended image)" << std::endl;
-    
-    std::cout << "\n📏 Depth map:" << std::endl;
-    std::cout << "  - " << depthImagePath << " (Normalized)" << std::endl;
-    std::cout << "  - " << outputBasePath << "depth_color.png (Color)" << std::endl;
-    std::cout << "  - " << rawDepthPath << " (Original float)" << std::endl;
-    
-    std::cout << "\n🧊 3D mesh:" << std::endl;
-    std::cout << "  - " << meshOutputPath << " (PLY format)" << std::endl;
-    
-    // **New: Quality assessment report**
-    cv::Mat validMask = disparity > 0;
-    int validPixels = cv::countNonZero(validMask);
-    int totalPixels = disparity.rows * disparity.cols;
-    float validRatio = static_cast<float>(validPixels) / totalPixels;
-    
-    std::cout << "\n📈 Quality assessment:" << std::endl;
-    std::cout << "  - Image size: " << imgL.cols << "x" << imgL.rows << std::endl;
-    std::cout << "  - Feature matching point count: " << ptsL.size() << std::endl;
-    std::cout << "  - Valid disparity pixel ratio: " << (validRatio * 100) << "%" << std::endl;
-    std::cout << "  - Disparity range: 0-" << numDisparities << " pixels" << std::endl;
-    
-    std::cout << "\n=== Stereo Vision Processing System completed ===" << std::endl;
+    std::cout << "\n=== Batch Processing Summary ===" << std::endl;
+    std::cout << "Total stereo pairs found: " << leftFiles.size() << std::endl;
+    std::cout << "Successfully processed: " << successCount << std::endl;
+    std::cout << "Failed: " << (leftFiles.size() - successCount) << std::endl;
     
     return 0;
 }

@@ -1,0 +1,54 @@
+Successfully read images, size: [941 x 490]
+Color image channels: 3
+Original color images saved
+[INFO] DisparityProcessor initialized with default parameters
+Using ORB feature detector
+
+2. Feature detection and matching...
+[INFO] Detected feature points: Left image=2000, Right image=2000
+[INFO] Using HAMMING distance matcher (binary descriptor)
+[INFO] Number of matches after Lowe's ratio test: 819
+[INFO] Final number of matches used: 200
+[INFO] Number of inliers after geometric verification: 200 / 200
+Successfully matched 200 feature points
+Color feature matching image saved
+
+3. Pose estimation...
+Warning: Fewer inliers (2)
+Successfully estimated relative pose
+
+4. Stereo rectification...
+Stereo rectification completed successfully
+Rectified color images saved
+
+5. Disparity computation...
+Successfully saved disparity map and related outputs
+
+6. Depth map computation...
+[DEBUG] Disparity map info: rows=490, cols=941, type=3 (CV_16S=3, CV_32F=5)
+[DEBUG] Q matrix info: rows=4, cols=4, type=6
+[DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
+[DEBUG] Valid disparity value range: [10, 33.4375]
+[DEBUG] Number of valid disparity pixels: 231856 / 461090
+[DEBUG] XYZ map info: rows=490, cols=941, type=21
+[DEBUG] Valid depth range: [52.5826, 173.652] unit
+[DEBUG] Number of valid depth pixels: 231854
+[DEBUG] Center depth: 98.7076
+[DEBUG] Use 98th percentile normalization: [52.5826, 128.455]
+Successfully saved depth maps
+
+7. Mesh reconstruction...
+[INFO] Start mesh reconstruction...
+[INFO] Depth map size: [941 x 490], type: 5
+[INFO] Color image size: [941 x 490], type: 16
+[INFO] Output path: ../test//eth1/reconstructed_mesh.ply
+[INFO] Generated 231854 3D points from 490x941 depth map
+[INFO] Generated point cloud, number of points: 231854
+[INFO] Successfully saved 231854 points to ../test//eth1/reconstructed_mesh.ply
+[SUCCESS] Mesh reconstruction completed, saved to: ../test//eth1/reconstructed_mesh.ply
+[INFO] Successfully saved 46371 points to ../test//eth1/reconstructed_mesh_simplified.ply
+[INFO] Simplified version saved to: ../test//eth1/reconstructed_mesh_simplified.ply
+Successfully saved 3D mesh to: ../test//eth1/reconstructed_mesh.ply
+
+8. Processing completed for eth1!
+Output files saved to: ../test//eth1/

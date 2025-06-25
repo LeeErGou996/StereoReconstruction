@@ -1,0 +1,53 @@
+Successfully read images, size: [1920 x 1080]
+Color image channels: 3
+Original color images saved
+[INFO] DisparityProcessor initialized with default parameters
+Using ORB feature detector
+
+2. Feature detection and matching...
+[INFO] Detected feature points: Left image=2000, Right image=2000
+[INFO] Using HAMMING distance matcher (binary descriptor)
+[INFO] Number of matches after Lowe's ratio test: 600
+[INFO] Final number of matches used: 200
+[INFO] Number of inliers after geometric verification: 197 / 200
+Successfully matched 197 feature points
+Color feature matching image saved
+
+3. Pose estimation...
+Successfully estimated relative pose
+
+4. Stereo rectification...
+Stereo rectification completed successfully
+Rectified color images saved
+
+5. Disparity computation...
+Successfully saved disparity map and related outputs
+
+6. Depth map computation...
+[DEBUG] Disparity map info: rows=1080, cols=1920, type=3 (CV_16S=3, CV_32F=5)
+[DEBUG] Q matrix info: rows=4, cols=4, type=6
+[DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
+[DEBUG] Valid disparity value range: [53.5, 136.625]
+[DEBUG] Number of valid disparity pixels: 629471 / 2073600
+[DEBUG] XYZ map info: rows=1080, cols=1920, type=21
+[DEBUG] Valid depth range: [12.869, 32.7493] unit
+[DEBUG] Number of valid depth pixels: 629470
+[DEBUG] Center depth: 0
+[DEBUG] Use 98th percentile normalization: [12.869, 28.9719]
+Successfully saved depth maps
+
+7. Mesh reconstruction...
+[INFO] Start mesh reconstruction...
+[INFO] Depth map size: [1920 x 1080], type: 5
+[INFO] Color image size: [1920 x 1080], type: 16
+[INFO] Output path: ../test//test1/reconstructed_mesh.ply
+[INFO] Generated 629470 3D points from 1080x1920 depth map
+[INFO] Generated point cloud, number of points: 629470
+[INFO] Successfully saved 629470 points to ../test//test1/reconstructed_mesh.ply
+[SUCCESS] Mesh reconstruction completed, saved to: ../test//test1/reconstructed_mesh.ply
+[INFO] Successfully saved 125894 points to ../test//test1/reconstructed_mesh_simplified.ply
+[INFO] Simplified version saved to: ../test//test1/reconstructed_mesh_simplified.ply
+Successfully saved 3D mesh to: ../test//test1/reconstructed_mesh.ply
+
+8. Processing completed for test1!
+Output files saved to: ../test//test1/
