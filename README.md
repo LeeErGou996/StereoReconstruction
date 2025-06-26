@@ -115,4 +115,21 @@ workspace/rootba/
 - The code is modular and can be extended for new algorithms or output formats.
 
 ## License
-This project is for academic and research use. Please cite appropriately if used in publications. 
+This project is for academic and research use. Please cite appropriately if used in publications.
+
+---
+
+## Update Log
+
+### 6.26 ergou update
+- **Updated README file**: Enhanced documentation with comprehensive project information and usage instructions
+- **Implemented new Docker deployment**: 
+  - Created Docker image with pre-configured environment
+  - Added code-server integration for web-based development
+  - Simplified setup process with one-command deployment
+- **Implemented new input and output save format**:
+  - Organized input images into separate left and right folders under data directory
+  - Created output subfolders named after input filenames for better organization
+  - Added batch processing capability for multiple image pairs
+  - Implemented comprehensive logging system with log.txt files in each output subfolder
+  - Enhanced file organization and result management 
