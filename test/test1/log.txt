@@ -28,7 +28,7 @@ Successfully saved disparity map and related outputs
 [DEBUG] Q matrix info: rows=4, cols=4, type=6
 [DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
 [DEBUG] Valid disparity value range: [53.5, 136.625]
-[DEBUG] Number of valid disparity pixels: 629471 / 2073600
+[DEBUG] Number of valid disparity pixels: 629471 / 2073600 (30.3564%)
 [DEBUG] XYZ map info: rows=1080, cols=1920, type=21
 [DEBUG] Valid depth range: [12.869, 32.7493] unit
 [DEBUG] Number of valid depth pixels: 629470

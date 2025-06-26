@@ -8,10 +8,10 @@ You can use the pre-built Docker image to run this project without manual enviro
 
 ```bash
 # Pull the image
-docker pull leeergou/3dproj
+docker pull leeergou/3dsmc-with-project:latest
 
 # Run the container (with code-server, port 8443)
-docker run -it -p 8443:8443 leeergou/3dproj
+docker run -it -p 8443:8443 leeergou/3dsmc-with-project:latest
 ```
 
 Then open your browser and visit `http://localhost:8443` to access the code-server environment with all project files and dependencies ready.
@@ -115,13 +115,4 @@ workspace/rootba/
 - The code is modular and can be extended for new algorithms or output formats.
 
 ## License
-This project is for academic and research use. Please cite appropriately if used in publications.
-
----
-
-## Update Log
-
-### 6.26 ergou branch update
-- Updated baseline deployment process
-- Rewritten README documentation
-- Updated data input and result saving methods 
+This project is for academic and research use. Please cite appropriately if used in publications. 

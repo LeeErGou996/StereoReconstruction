@@ -228,7 +228,7 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     std::cout << "Successfully saved disparity map and related outputs" << std::endl;
     
     std::cout << "\n6. Depth map computation..." << std::endl;
-    
+
     // Depth computation
     cv::Mat Q_matrix = denseMatcher.getQMatrix();
     cv::Mat depthMap;
