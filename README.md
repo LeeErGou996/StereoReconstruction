@@ -121,6 +121,16 @@ This project is for academic and research use. Please cite appropriately if used
 
 ## Update Log
 
+### 7.2 ergou update
+- **Implemented Delaunay Triangulation and Poisson Surface Reconstruction**:
+  - Added Delaunay triangulation algorithm for mesh generation from point clouds
+  - Integrated PCL (Point Cloud Library) for true Poisson surface reconstruction
+  - Implemented flexible output modes: point cloud, triangulated mesh, or Poisson reconstructed mesh
+  - Added user-selectable reconstruction mode parameter for different output types
+  - Enhanced mesh quality with proper surface reconstruction algorithms
+
+
+
 ### 6.26 ergou update
 - **Updated README file**: Enhanced documentation with comprehensive project information and usage instructions
 - **Implemented new Docker deployment**: 
