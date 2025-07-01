@@ -17,8 +17,6 @@
 #include "depth.h"
 #include "meshReconstruction.h"
 #include "sparseMatching.h"
-#include "pointCloudFilter.h" // 点云滤波模块
-#include "poissonReconstruction.h" // 添加Poisson重建头文件
 
 // Simplified color processing function (defined directly in main.cpp to avoid header conflicts)
 cv::Mat createSimpleColorDisparity(const cv::Mat& disparity, int colormap = cv::COLORMAP_JET) {
@@ -178,12 +176,6 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     
     std::cout << "Stereo rectification completed successfully" << std::endl;
     
-    // 直接使用rectL和rectR，不做滤波
-    cv::Mat rectL_filtered = rectL;
-    cv::Mat rectR_filtered = rectR;
-    cv::imwrite(pairOutputDir + "left_rectified_filtered.png", rectL_filtered);
-    cv::imwrite(pairOutputDir + "right_rectified_filtered.png", rectR_filtered);
-    
     // Rectify color images
     cv::Mat rectL_color, rectR_color;
     
@@ -202,9 +194,7 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     // Apply rectification to color images
     cv::remap(imgL_color, rectL_color, mapLx, mapLy, cv::INTER_LINEAR);
     cv::remap(imgR_color, rectR_color, mapRx, mapRy, cv::INTER_LINEAR);
-    // 直接使用rectL_color，不做滤波
-    cv::Mat rectL_color_filtered = rectL_color;
-    cv::imwrite(pairOutputDir + "left_rectified_color_filtered.png", rectL_color_filtered);
+    
     // Save rectified color images
     cv::imwrite(pairOutputDir + "left_rectified.png", rectL_color);
     cv::imwrite(pairOutputDir + "right_rectified.png", rectR_color);
@@ -216,13 +206,13 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     cv::Mat disparity;
     if (matchingMode == "sparse") {
         SparseMatcher sparseMatcher(K, distCoeffs, numDisparities, blockSize);
-        if (!sparseMatcher.computeDisparityMap(rectL_filtered, rectR_filtered, disparity)) {
+        if (!sparseMatcher.computeDisparityMap(rectL, rectR, disparity)) {
             std::cerr << "Error: Sparse disparity computation failed" << std::endl;
             return false;
         }
     } else {
         DenseMatcher denseMatcher(K, distCoeffs, numDisparities, blockSize);
-        if (!denseMatcher.computeDisparityMap(rectL_filtered, rectR_filtered, disparity)) {
+        if (!denseMatcher.computeDisparityMap(rectL, rectR, disparity)) {
             std::cerr << "Error: Dense disparity computation failed" << std::endl;
             return false;
         }
@@ -290,38 +280,24 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     meshParams.reconstructionMode = reconstructionMode;
     meshParams.meshFormat = "ply";      // Default PLY format
     meshParams.triangulationStep = 1;   // 改为1获得最高精度
-    meshParams.maxDepthDifference = 100.0f; // 放宽深度差异限制
+    meshParams.maxDepthDifference = 500.0f; // 放宽深度差异限制
     meshParams.useColor = true;         // Use color information
-    meshParams.depthThreshold = 5000.0f; // 降低深度阈值，专注于近处物体
+    meshParams.depthThreshold = 8000.0f; // 降低深度阈值，专注于近处物体
+    
+    // Poisson reconstruction parameters
+    meshParams.poissonDepth = 8.0f;           // Octree depth
+    meshParams.poissonSolverDivide = 8.0f;    // Solver depth
+    meshParams.poissonSamplesPerNode = 1.5f;  // Samples per node
+    meshParams.poissonFullDepth = 5.0f;       // Full reconstruction depth
+    meshParams.poissonTrim = 0.0f;            // Trimming parameter
+    meshParams.poissonUseConfidence = false;  // Use confidence weights
+    
+    // Apply mesh reconstruction parameters
     MeshReconstruction::setReconstructionParams(meshParams);
-
-    // Poisson重建参数设置
-    if (reconstructionMode == 2) {
-        // MeshReconstruction::setPoissonReconstructionParams(0.005f, 2, 2.0f); // 可选：设置默认参数
-
-        // 基本使用
-        MeshReconstruction::Mesh mesh = MeshReconstruction::generatePoissonMesh(depthMap, rectL_color_filtered, K);
-
-        // 自定义参数（高精度）
-        MeshReconstruction::setPoissonReconstructionParams(0.003f, 1, 2.5f);  // 高精度
-        MeshReconstruction::Mesh highQualityMesh = MeshReconstruction::generatePoissonMesh(depthMap, rectL_color_filtered, K);
-
-        // 快速重建
-        MeshReconstruction::setPoissonReconstructionParams(0.01f, 4, 2.0f);   // 快速模式
-        MeshReconstruction::Mesh fastMesh = MeshReconstruction::generatePoissonMesh(depthMap, rectL_color_filtered, K);
-
-        if (!mesh.vertices.empty() && !mesh.faces.empty()) {
-            MeshReconstruction::saveMeshFile(mesh, meshPath + "_poisson_mesh.ply", "ply");
-            std::cout << "[INFO] Poisson mesh saved to: " << meshPath + "_poisson_mesh.ply" << std::endl;
-        } else {
-            std::cerr << "Error: Failed to generate Poisson mesh" << std::endl;
-            return false;
-        }
-    } else {
-        if (!MeshReconstruction::reconstructAndSaveMesh(depthMap, rectL_color_filtered, meshPath)) {
-            std::cerr << "Error: Mesh reconstruction failed" << std::endl;
-            return false;
-        }
+    
+    if (!MeshReconstruction::reconstructAndSaveMesh(depthMap, rectL_color, meshPath)) {
+        std::cerr << "Error: Mesh reconstruction failed" << std::endl;
+        return false;
     }
     
     std::cout << "Successfully completed 3D reconstruction" << std::endl;
@@ -374,8 +350,8 @@ int main() {
     cv::Mat distCoeffs = cv::Mat::zeros(5, 1, CV_64F);
     
     // Define stereo matching parameters
-    int numDisparities = 256;
-    int blockSize = 11;
+    int numDisparities = 128;
+    int blockSize = 5;
     
     // Change algorithm here: SIFT, SURF, ORB
     FeatureType algorithm = FeatureType::ORB;  // Default use ORB
