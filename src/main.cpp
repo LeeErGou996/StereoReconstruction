@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <vector>
 #include <fstream>
+#include <regex>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
@@ -19,6 +20,7 @@
 #include "sparseMatching.h"
 #include "pointCloudFilter.h" // 点云滤波模块
 #include "poissonReconstruction.h" // 添加Poisson重建头文件
+#include "config.h"
 
 // Simplified color processing function (defined directly in main.cpp to avoid header conflicts)
 cv::Mat createSimpleColorDisparity(const cv::Mat& disparity, int colormap = cv::COLORMAP_JET) {
@@ -70,10 +72,44 @@ std::string getBaseFilename(const std::string& filepath) {
     return path.stem().string();
 }
 
+// Function to parse camera intrinsics from file
+bool parseCameraIntrinsics(const std::string& cameraFilePath, cv::Mat& K) {
+    std::ifstream file(cameraFilePath);
+    if (!file.is_open()) {
+        std::cerr << "Error: Cannot open camera file: " << cameraFilePath << std::endl;
+        return false;
+    }
+    
+    std::string line;
+    std::getline(file, line);
+    file.close();
+    
+    // Parse format: cam0=[1733.74 0 792.27; 0 1733.74 541.89; 0 0 1]
+    // Support negative numbers for cx, cy values
+    std::regex pattern(R"(cam0=\[([+-]?[\d.]+)\s+([+-]?[\d.]+)\s+([+-]?[\d.]+);\s+([+-]?[\d.]+)\s+([+-]?[\d.]+)\s+([+-]?[\d.]+);\s+([+-]?[\d.]+)\s+([+-]?[\d.]+)\s+([+-]?[\d.]+)\])");
+    std::smatch matches;
+    
+    if (std::regex_search(line, matches, pattern) && matches.size() == 10) {
+        K = (cv::Mat_<double>(3,3) << 
+            std::stod(matches[1]), std::stod(matches[2]), std::stod(matches[3]),
+            std::stod(matches[4]), std::stod(matches[5]), std::stod(matches[6]),
+            std::stod(matches[7]), std::stod(matches[8]), std::stod(matches[9]));
+        
+        std::cout << "Successfully loaded camera intrinsics from: " << cameraFilePath << std::endl;
+        std::cout << "Camera matrix K:" << std::endl << K << std::endl;
+        return true;
+    } else {
+        std::cerr << "Error: Invalid camera intrinsics format in file: " << cameraFilePath << std::endl;
+        std::cerr << "Expected format: cam0=[fx 0 cx; 0 fy cy; 0 0 1]" << std::endl;
+        std::cerr << "Found: " << line << std::endl;
+        return false;
+    }
+}
+
 // Function to process a single stereo pair
 bool processStereoPair(const std::string& leftImagePath, const std::string& rightImagePath, 
                       const std::string& outputDir, const cv::Mat& K, const cv::Mat& distCoeffs,
-                      int numDisparities, int blockSize, FeatureType algorithm, int reconstructionMode, std::string matchingMode) {
+                      std::string matchingMode) {
     
     std::string baseFilename = getBaseFilename(leftImagePath);
     std::cout << "\n=== Processing stereo pair: " << baseFilename << " ===" << std::endl;
@@ -116,7 +152,7 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     
     // Create feature detector and matcher
     DisparityProcessor sparseMatcher;
-    cv::Ptr<cv::Feature2D> detector = sparseMatcher.createDetector(algorithm);
+    cv::Ptr<cv::Feature2D> detector = sparseMatcher.createDetector(Config::instance().algorithm);
     if (!detector) {
         std::cerr << "Error: Cannot create feature detector" << std::endl;
         return false;
@@ -169,7 +205,7 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     
     // Stereo rectification and disparity computation
     cv::Mat rectL, rectR;
-    DenseMatcher denseMatcher(K, distCoeffs, numDisparities, blockSize);
+    DenseMatcher denseMatcher(K, distCoeffs, Config::instance().numDisparities, Config::instance().blockSize);
 
     if (!denseMatcher.rectifyImages(imgL, imgR, R, t, rectL, rectR)) {
         std::cerr << "Error: Stereo rectification failed" << std::endl;
@@ -215,13 +251,13 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     // Compute disparity map
     cv::Mat disparity;
     if (matchingMode == "sparse") {
-        SparseMatcher sparseMatcher(K, distCoeffs, numDisparities, blockSize);
+        SparseMatcher sparseMatcher(K, distCoeffs, Config::instance().numDisparities, Config::instance().blockSize);
         if (!sparseMatcher.computeDisparityMap(rectL_filtered, rectR_filtered, disparity)) {
             std::cerr << "Error: Sparse disparity computation failed" << std::endl;
             return false;
         }
     } else {
-        DenseMatcher denseMatcher(K, distCoeffs, numDisparities, blockSize);
+        DenseMatcher denseMatcher(K, distCoeffs, Config::instance().numDisparities, Config::instance().blockSize);
         if (!denseMatcher.computeDisparityMap(rectL_filtered, rectR_filtered, disparity)) {
             std::cerr << "Error: Dense disparity computation failed" << std::endl;
             return false;
@@ -230,7 +266,7 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     
     // Save disparity map
     cv::Mat disparity8;
-    disparity.convertTo(disparity8, CV_8U, 255.0/(numDisparities*16.0));
+    disparity.convertTo(disparity8, CV_8U, 255.0/(Config::instance().numDisparities*16.0));
     cv::imwrite(pairOutputDir + "disparity.png", disparity8);
     
     // Save color disparity maps
@@ -278,6 +314,9 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     
     std::cout << "\n7. Mesh reconstruction..." << std::endl;
     
+    // Set mesh reconstruction parameters
+    MeshReconstruction::setReconstructionParams(Config::instance().meshParams);
+    
     // Mesh reconstruction (format will be determined by parameters)
     std::string meshPath = pairOutputDir;
     // Remove trailing slash to avoid double slashes
@@ -285,43 +324,15 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
         meshPath.pop_back();
     }
     
-    // Set mesh reconstruction parameters
-    MeshReconstruction::ReconstructionParams meshParams;
-    meshParams.reconstructionMode = reconstructionMode;
-    meshParams.meshFormat = "ply";      // Default PLY format
-    meshParams.triangulationStep = 1;   // 改为1获得最高精度
-    meshParams.maxDepthDifference = 100.0f; // 放宽深度差异限制
-    meshParams.useColor = true;         // Use color information
-    meshParams.depthThreshold = 5000.0f; // 降低深度阈值，专注于近处物体
-    MeshReconstruction::setReconstructionParams(meshParams);
-
-    // Poisson重建参数设置
-    if (reconstructionMode == 2) {
-        // MeshReconstruction::setPoissonReconstructionParams(0.005f, 2, 2.0f); // 可选：设置默认参数
-
-        // 基本使用
-        MeshReconstruction::Mesh mesh = MeshReconstruction::generatePoissonMesh(depthMap, rectL_color_filtered, K);
-
-        // 自定义参数（高精度）
-        MeshReconstruction::setPoissonReconstructionParams(0.003f, 1, 2.5f);  // 高精度
-        MeshReconstruction::Mesh highQualityMesh = MeshReconstruction::generatePoissonMesh(depthMap, rectL_color_filtered, K);
-
-        // 快速重建
-        MeshReconstruction::setPoissonReconstructionParams(0.01f, 4, 2.0f);   // 快速模式
-        MeshReconstruction::Mesh fastMesh = MeshReconstruction::generatePoissonMesh(depthMap, rectL_color_filtered, K);
-
-        if (!mesh.vertices.empty() && !mesh.faces.empty()) {
-            MeshReconstruction::saveMeshFile(mesh, meshPath + "_poisson_mesh.ply", "ply");
-            std::cout << "[INFO] Poisson mesh saved to: " << meshPath + "_poisson_mesh.ply" << std::endl;
-        } else {
-            std::cerr << "Error: Failed to generate Poisson mesh" << std::endl;
-            return false;
-        }
+    // Poisson重建参数设置和多模式重建全部迁移到Config，由Config管理和调用
+    MeshReconstruction::Mesh mesh = Config::generatePoissonMeshes(depthMap, rectL_color_filtered, K);
+    
+    if (!mesh.vertices.empty() && !mesh.faces.empty()) {
+        MeshReconstruction::saveMeshFile(mesh, meshPath + "_poisson_mesh.ply", "ply");
+        std::cout << "[INFO] Poisson mesh saved to: " << meshPath + "_poisson_mesh.ply" << std::endl;
     } else {
-        if (!MeshReconstruction::reconstructAndSaveMesh(depthMap, rectL_color_filtered, meshPath)) {
-            std::cerr << "Error: Mesh reconstruction failed" << std::endl;
-            return false;
-        }
+        std::cerr << "Error: Failed to generate Poisson mesh" << std::endl;
+        return false;
     }
     
     std::cout << "Successfully completed 3D reconstruction" << std::endl;
@@ -332,15 +343,18 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
     // 恢复输出
     std::cout.rdbuf(orig_cout);
     std::cerr.rdbuf(orig_cerr);
+    log_file.flush();
+    log_file.close();
     
     return true;
 }
 
 int main() {
+    Config::load("../src/config.txt");
     std::cout << "=== Stereo Vision Processing System (Batch Processing) ===" << std::endl;
     
     // Interactive input for reconstruction method
-    int reconstructionMode = 1;  // Default: Triangulated Mesh
+    // int reconstructionMode = 1;  // Default: Triangulated Mesh
     
     std::cout << "\n=== Reconstruction Method Selection ===" << std::endl;
     std::cout << "Please select reconstruction method:" << std::endl;
@@ -354,47 +368,32 @@ int main() {
     
     // Parse user input
     if (input == "0") {
-        reconstructionMode = 0;
+        Config::instance().reconstructionMode = 0;
         std::cout << "Selected: Point Cloud" << std::endl;
     } else if (input == "1") {
-        reconstructionMode = 1;
+        Config::instance().reconstructionMode = 1;
         std::cout << "Selected: Triangulated Mesh" << std::endl;
     } else if (input == "2") {
-        reconstructionMode = 2;
+        Config::instance().reconstructionMode = 2;
         std::cout << "Selected: Poisson Surface Reconstruction" << std::endl;
     } else {
         std::cout << "Invalid input. Using default: Triangulated Mesh" << std::endl;
-        reconstructionMode = 1;
+        Config::instance().reconstructionMode = 1;
     }
     
     std::cout << "=============================" << std::endl;
     
-    // Define camera intrinsics
-    cv::Mat K = (cv::Mat_<double>(3,3) << 1758.23, 0, 953.34, 0, 1758.23, 552.29, 0, 0, 1);
-    cv::Mat distCoeffs = cv::Mat::zeros(5, 1, CV_64F);
-    
-    // Define stereo matching parameters
-    int numDisparities = 256;
-    int blockSize = 11;
-    
-    // Change algorithm here: SIFT, SURF, ORB
-    FeatureType algorithm = FeatureType::ORB;  // Default use ORB
-    
-    // Directory paths
-    std::string leftDir = "../data/left/";
-    std::string rightDir = "../data/right/";
-    std::string outputDir = "../test/";
-    
-    std::cout << "Left images directory: " << leftDir << std::endl;
-    std::cout << "Right images directory: " << rightDir << std::endl;
-    std::cout << "Output directory: " << outputDir << std::endl;
-    
+    // Define camera intrinsics - will be loaded from files
+    cv::Mat K;
+    std::cout << "Left images directory: " << Config::instance().leftDir << std::endl;
+    std::cout << "Right images directory: " << Config::instance().rightDir << std::endl;
+    std::cout << "Output directory: " << Config::instance().outputDir << std::endl;
     // Create output directory
-    std::filesystem::create_directories(outputDir);
+    std::filesystem::create_directories(Config::instance().outputDir);
     
     // Get all files from left directory
     std::vector<std::string> leftFiles;
-    for (const auto& entry : std::filesystem::directory_iterator(leftDir)) {
+    for (const auto& entry : std::filesystem::directory_iterator(Config::instance().leftDir)) {
         if (entry.is_regular_file()) {
             std::string ext = entry.path().extension().string();
             if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".bmp" || ext == ".tiff") {
@@ -404,7 +403,7 @@ int main() {
     }
     
     if (leftFiles.empty()) {
-        std::cerr << "Error: No image files found in left directory: " << leftDir << std::endl;
+        std::cerr << "Error: No image files found in left directory: " << Config::instance().leftDir << std::endl;
         return -1;
     }
     
@@ -419,20 +418,54 @@ int main() {
     // Process each stereo pair
     int successCount = 0;
     for (const auto& leftFile : leftFiles) {
+        // 清理上一次循环的变量（如K_pair等）
+        cv::Mat K_pair; // 每次循环新建，避免残留
+        // 其他如特征点、图像等变量都在各自作用域内自动释放
+
         std::string baseFilename = getBaseFilename(leftFile);
-        std::string rightFile = rightDir + baseFilename + ".png"; // Assuming same extension
-        
+        std::string rightFile = Config::instance().rightDir + baseFilename + ".png"; // Assuming same extension
+        std::string cameraFile = Config::instance().cameraDir + baseFilename + ".txt";
+        std::string pairOutputDir = Config::instance().outputDir + "/" + baseFilename + "/";
+        std::filesystem::create_directories(pairOutputDir);
+
+        // --- 新增：重定向cout/cerr到log文件 ---
+        std::streambuf* orig_cout = std::cout.rdbuf();
+        std::streambuf* orig_cerr = std::cerr.rdbuf();
+        std::ofstream log_file(pairOutputDir + "log.txt");
+        std::cout.rdbuf(log_file.rdbuf());
+        std::cerr.rdbuf(log_file.rdbuf());
+        // -----------------------------------
+
+        bool success = true;
         // Check if corresponding right image exists
         if (!std::filesystem::exists(rightFile)) {
             std::cout << "Warning: No corresponding right image found for " << baseFilename << std::endl;
-            continue;
+            success = false;
         }
-        
+
+        // Load camera intrinsics for this stereo pair
+        if (success && !parseCameraIntrinsics(cameraFile, K_pair)) {
+            std::cout << "Warning: Cannot load camera intrinsics for " << baseFilename << ", skipping..." << std::endl;
+            success = false;
+        }
+
         // Process the stereo pair
-        if (processStereoPair(leftFile, rightFile, outputDir, K, distCoeffs, 
-                             numDisparities, blockSize, algorithm, reconstructionMode, matchingMode)) {
+        if (success) {
+            if (!processStereoPair(leftFile, rightFile, Config::instance().outputDir, K_pair, Config::instance().distCoeffs, matchingMode)) {
+                std::cout << "[ERROR] Reconstruction failed for " << baseFilename << ", moving to next input." << std::endl;
+                success = false;
+            }
+        }
+
+        if (success) {
             successCount++;
         }
+
+        // --- 恢复输出流 ---
+        std::cout.rdbuf(orig_cout);
+        std::cerr.rdbuf(orig_cerr);
+        log_file.flush();
+        log_file.close();
     }
     
     std::cout << "\n=== Batch Processing Summary ===" << std::endl;

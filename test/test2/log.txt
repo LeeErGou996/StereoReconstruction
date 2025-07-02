@@ -1,0 +1,82 @@
+Successfully read images, size: [1920 x 1080]
+Color image channels: 3
+Original color images saved
+[INFO] DisparityProcessor initialized with default parameters
+Using ORB feature detector
+
+2. Feature detection and matching...
+[INFO] Detected feature points: Left image=2000, Right image=2000
+[INFO] Using HAMMING distance matcher (binary descriptor)
+[INFO] Number of matches after Lowe's ratio test: 195
+[INFO] Final number of matches used: 195
+[INFO] Number of inliers after geometric verification: 150 / 195
+Successfully matched 150 feature points
+Color feature matching image saved
+
+3. Pose estimation...
+Successfully estimated relative pose
+
+4. Stereo rectification...
+Stereo rectification completed successfully
+Rectified color images saved
+
+5. Disparity computation...
+Successfully saved disparity map and related outputs
+
+6. Depth map computation...
+[DEBUG] Disparity map info: rows=1080, cols=1920, type=3 (CV_16S=3, CV_32F=5)
+[DEBUG] Q matrix info: rows=4, cols=4, type=6
+[DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
+[DEBUG] Valid disparity value range: [14.1875, 255]
+[DEBUG] Number of valid disparity pixels: 151028 / 2073600
+[DEBUG] XYZ map info: rows=1080, cols=1920, type=21
+[DEBUG] Valid depth range: [6.89502, 123.385] unit
+[DEBUG] Number of valid depth pixels: 151026
+[DEBUG] Center depth: 0
+[DEBUG] Use 98th percentile normalization: [6.89502, 12.4366]
+Successfully saved depth maps
+
+7. Mesh reconstruction...
+[INFO] Mesh reconstruction parameters updated
+[INFO] Reconstruction mode: Poisson Surface Reconstruction
+[INFO] Starting Poisson surface reconstruction...
+[INFO] Estimating normals from depth map...
+[DEBUG] Input depth map: 1080x1920, type=5
+[DEBUG] Processed depth map type: 5
+[DEBUG] Depth value range: [0, 123.385]
+[DEBUG] Depth threshold: 2
+[DEBUG] Expected points: 128104 (step=4)
+[DEBUG] Processing statistics:
+  Total pixels processed: 128104
+  Valid depth pixels: 0
+  Valid neighbor pixels: 0
+[INFO] Estimated normals for 0 points
+Error: Not enough points with normals for Poisson reconstruction
+[INFO] Starting Poisson surface reconstruction...
+[INFO] Estimating normals from depth map...
+[DEBUG] Input depth map: 1080x1920, type=5
+[DEBUG] Processed depth map type: 5
+[DEBUG] Depth value range: [0, 123.385]
+[DEBUG] Depth threshold: 2.5
+[DEBUG] Expected points: 2067604 (step=1)
+[DEBUG] Processing statistics:
+  Total pixels processed: 2067604
+  Valid depth pixels: 0
+  Valid neighbor pixels: 0
+[INFO] Estimated normals for 0 points
+Error: Not enough points with normals for Poisson reconstruction
+[INFO] Starting Poisson surface reconstruction...
+[INFO] Estimating normals from depth map...
+[DEBUG] Input depth map: 1080x1920, type=5
+[DEBUG] Processed depth map type: 5
+[DEBUG] Depth value range: [0, 123.385]
+[DEBUG] Depth threshold: 2
+[DEBUG] Expected points: 128104 (step=4)
+[DEBUG] Processing statistics:
+  Total pixels processed: 128104
+  Valid depth pixels: 0
+  Valid neighbor pixels: 0
+[INFO] Estimated normals for 0 points
+Error: Not enough points with normals for Poisson reconstruction
+Error: Failed to generate Poisson mesh
+[INFO] DisparityProcessor destroyed

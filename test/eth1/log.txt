@@ -1,0 +1,55 @@
+Successfully read images, size: [889 x 512]
+Color image channels: 3
+Original color images saved
+[INFO] DisparityProcessor initialized with default parameters
+Using SIFT feature detector
+
+2. Feature detection and matching...
+[INFO] Detected feature points: Left image=1000, Right image=1001
+[INFO] Using L2 distance matcher (float descriptor)
+[INFO] Number of matches after Lowe's ratio test: 763
+[INFO] Final number of matches used: 200
+[INFO] Number of inliers after geometric verification: 200 / 200
+Successfully matched 200 feature points
+Color feature matching image saved
+
+3. Pose estimation...
+Warning: Fewer inliers (3)
+Successfully estimated relative pose
+
+4. Stereo rectification...
+Stereo rectification completed successfully
+Rectified color images saved
+
+5. Disparity computation...
+Successfully saved disparity map and related outputs
+
+6. Depth map computation...
+[DEBUG] Disparity map info: rows=512, cols=889, type=3 (CV_16S=3, CV_32F=5)
+[DEBUG] Q matrix info: rows=4, cols=4, type=6
+[DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
+[DEBUG] Valid disparity value range: [0, 0]
+[DEBUG] Number of valid disparity pixels: 0 / 455168
+[DEBUG] XYZ map info: rows=512, cols=889, type=21
+Warning: No valid depth value!
+Warning: No valid depth value, create empty depth map
+Successfully saved depth maps
+
+7. Mesh reconstruction...
+[INFO] Mesh reconstruction parameters updated
+[INFO] Reconstruction mode: Point Cloud
+[INFO] Starting Poisson surface reconstruction...
+[INFO] Estimating normals from depth map...
+[DEBUG] Input depth map: 512x889, type=5
+[DEBUG] Processed depth map type: 5
+[DEBUG] Depth value range: [0, 0]
+[DEBUG] Depth threshold: 5000
+[DEBUG] Expected points: 17500 (step=5)
+[DEBUG] Processing statistics:
+  Total pixels processed: 17776
+  Valid depth pixels: 0
+  Valid neighbor pixels: 0
+[INFO] Estimated normals for 0 points
+Error: Not enough points with normals for Poisson reconstruction
+Error: Failed to generate Poisson mesh
+[INFO] DisparityProcessor destroyed

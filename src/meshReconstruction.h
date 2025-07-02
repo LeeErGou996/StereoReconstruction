@@ -40,8 +40,8 @@ struct Mesh {
  * Mesh reconstruction parameters
  */
 struct ReconstructionParams {
-    float depthThreshold = 10000.0f;  // Depth threshold
-    float voxelSize = 1.0f;           // Voxel size
+    float depthThreshold = 100.0f;  // Depth threshold
+    float voxelSize = 0.005f;           // Voxel size
     bool useColor = true;             // Use color or not
     bool smoothMesh = true;           // Smooth mesh or not
     int decimationTarget = 100000;    // Target triangle count for mesh decimation
@@ -50,16 +50,22 @@ struct ReconstructionParams {
     int reconstructionMode = 0;
     
     // Triangulation specific parameters
-    int triangulationStep = 2;        // Sampling step for triangulation (pixels)
+    int triangulationStep = 1;        // Sampling step for triangulation (pixels)
     float maxDepthDifference = 500.0f; // Maximum depth difference for triangle validation (same unit as depth)
     
     // Poisson reconstruction parameters
-    float poissonDepth = 8.0f;        // Depth of the octree used for reconstruction
-    float poissonSolverDivide = 8.0f; // Depth at which a block Gauss-Seidel solver is used
-    float poissonSamplesPerNode = 1.5f; // Minimum number of sample points that fall within an octree node
-    float poissonFullDepth = 5.0f;    // Depth at which the mesh is fully reconstructed
-    float poissonTrim = 0.0f;         // Trimming parameter for mesh cleaning
-    bool poissonUseConfidence = false; // Use confidence weights in reconstruction
+    float poissonDepth;        // Depth of the octree used for reconstruction
+    float poissonSolverDivide; // Depth at which a block Gauss-Seidel solver is used
+    float poissonSamplesPerNode; // Minimum number of sample points that fall within an octree node
+    float poissonFullDepth;    // Depth at which the mesh is fully reconstructed
+    float poissonTrim;         // Trimming parameter for mesh cleaning
+    bool poissonUseConfidence; // Use confidence weights in reconstruction
+    bool poissonManifold;      // 保持流形
+    bool poissonOutputPolygons; // 输出多边形
+    
+    // Poisson参数补充
+    float depthDiffThreshold; // 深度差异阈值系数（如0.1）
+    int normalNeighbors;      // 法线估计邻居数（如15）
     
     // Mesh format options
     bool saveAsMesh = true;           // Save as mesh format (with faces) instead of point cloud

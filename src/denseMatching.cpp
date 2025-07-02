@@ -1,4 +1,5 @@
 #include "denseMatching.h"
+#include "config.h"
 #include <iostream>
 
 DenseMatcher::DenseMatcher(const cv::Mat& K, const cv::Mat& distCoeffs,
@@ -43,16 +44,15 @@ bool DenseMatcher::computeDisparityMap(const cv::Mat& rectL, const cv::Mat& rect
     stereoSGBM->setMinDisparity(0);
     stereoSGBM->setNumDisparities(numDisparities_);
     
-    // 只修改P1/P2为较小的非零值
-    stereoSGBM->setP1(2 * rectL.channels());
-    stereoSGBM->setP2(8 * rectL.channels());
-    
-    // 其余参数与BM一致
-    stereoSGBM->setPreFilterCap(31);
-    stereoSGBM->setUniquenessRatio(30);
-    stereoSGBM->setSpeckleWindowSize(100);
-    stereoSGBM->setSpeckleRange(32);
-    stereoSGBM->setDisp12MaxDiff(1);
+    // 参数全部从Config读取
+    const auto& cfg = Config::instance();
+    stereoSGBM->setP1(cfg.sgbmP1 * rectL.channels());
+    stereoSGBM->setP2(cfg.sgbmP2 * rectL.channels());
+    stereoSGBM->setPreFilterCap(cfg.preFilterCap);
+    stereoSGBM->setUniquenessRatio(cfg.uniquenessRatio);
+    stereoSGBM->setSpeckleWindowSize(cfg.speckleWindowSize);
+    stereoSGBM->setSpeckleRange(cfg.speckleRange);
+    stereoSGBM->setDisp12MaxDiff(cfg.disp12MaxDiff);
     
     // BM等效模式
     stereoSGBM->setMode(cv::StereoSGBM::MODE_SGBM);

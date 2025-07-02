@@ -13,22 +13,7 @@ int main() {
         std::cout << "✗ PCL library not available" << std::endl;
     }
     
-    // 设置PCL Poisson重建参数
-    MeshReconstruction::setPCLPoissonParams(
-        8,    // depth: 八叉树深度
-        8,    // solverDivide: 求解器分割深度
-        1.5f, // samplesPerNode: 每个节点的样本数
-        false, // confidence: 不使用置信度权重
-        false, // manifold: 不保持流形
-        false  // outputPolygons: 输出三角形
-    );
-    
-    // 设置其他参数
-    MeshReconstruction::setPoissonReconstructionParams(0.01f, 2, 10.0f);
-    MeshReconstruction::setAdvancedPoissonParams(150, 10, 6);
-    
     std::cout << "\n=== Parameter Summary ===" << std::endl;
-    std::cout << "Poisson reconstruction parameters configured." << std::endl;
     std::cout << "Ready to use generatePoissonMesh() function." << std::endl;
     
     // 示例用法（需要实际的深度图数据）

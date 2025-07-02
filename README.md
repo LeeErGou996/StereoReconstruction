@@ -128,8 +128,11 @@ This project is for academic and research use. Please cite appropriately if used
   - Implemented flexible output modes: point cloud, triangulated mesh, or Poisson reconstructed mesh
   - Added user-selectable reconstruction mode parameter for different output types
   - Enhanced mesh quality with proper surface reconstruction algorithms
-
-
+- **Parameter Control Refactor and Optimization**:
+  - Completely refactored the parameter management system: all algorithm and reconstruction parameters are now loaded from `config.txt` at runtime.
+  - Parameters can be hot-modified in the config file without recompiling the code, enabling fast experimentation and tuning.
+  - All modules (dense matching, mesh, Poisson, etc.) now use config.txt for their settings.
+  - Initial parameter optimization experiments show that SIFT feature detection is more suitable than ORB for Poisson surface reconstruction, resulting in higher quality meshes.
 
 ### 6.26 ergou update
 - **Updated README file**: Enhanced documentation with comprehensive project information and usage instructions

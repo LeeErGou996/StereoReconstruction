@@ -1,3 +1,4 @@
+#include "config.h"
 #include "poissonReconstruction.h"
 #include <opencv2/flann.hpp>
 #include <omp.h>
@@ -23,86 +24,14 @@
 
 namespace MeshReconstruction {
 
-// ==================== 内部参数结构体定义 ====================
-struct PoissonParams {
-    float voxelSize = 0.005f;           // 体素大小 (5mm)
-    int triangulationStep = 2;          // 深度图采样步长
-    float depthThreshold = 100.0f;      // 最大深度阈值 (100米)
-    int maxGridSize = 200;              // 最大网格尺寸
-    int normalNeighbors = 15;           // 法线估计邻居数
-    int sdfNeighbors = 8;               // SDF计算邻居数
-    float connectionThreshold = 1.8f;   // 三角化连接阈值系数
-    float minTriangleArea = 0.1f;       // 最小三角形面积系数
-    float depthDiffThreshold = 0.1f;    // 深度差异阈值系数
-    
-    // PCL Poisson重建参数
-    int pclDepth = 8;                   // 八叉树深度
-    int pclSolverDivide = 8;            // 求解器分割深度
-    float pclSamplesPerNode = 1.5f;     // 每个节点的样本数
-    bool pclConfidence = false;         // 是否使用置信度权重
-    bool pclManifold = false;           // 是否保持流形
-    bool pclOutputPolygons = false;     // 是否输出多边形
-};
-
-// 全局参数实例
-static PoissonParams g_params;
-
 // ==================== 参数配置接口 ====================
-void setPoissonReconstructionParams(float voxelSize, int triangulationStep, float depthThreshold) {
-    g_params.voxelSize = voxelSize;
-    g_params.triangulationStep = triangulationStep;
-    g_params.depthThreshold = depthThreshold;
-}
-
-void setAdvancedPoissonParams(int maxGridSize, int normalNeighbors, int sdfNeighbors) {
-    g_params.maxGridSize = maxGridSize;
-    g_params.normalNeighbors = normalNeighbors;
-    g_params.sdfNeighbors = sdfNeighbors;
-}
-
-// 设置PCL Poisson重建参数
-void setPCLPoissonParams(int depth, int solverDivide, float samplesPerNode,
-                        bool confidence, bool manifold, bool outputPolygons) {
-    g_params.pclDepth = depth;
-    g_params.pclSolverDivide = solverDivide;
-    g_params.pclSamplesPerNode = samplesPerNode;
-    g_params.pclConfidence = confidence;
-    g_params.pclManifold = manifold;
-    g_params.pclOutputPolygons = outputPolygons;
-    
-    std::cout << "[INFO] PCL Poisson parameters updated:" << std::endl;
-    std::cout << "  Depth: " << depth << std::endl;
-    std::cout << "  Solver divide: " << solverDivide << std::endl;
-    std::cout << "  Samples per node: " << samplesPerNode << std::endl;
-    std::cout << "  Confidence: " << (confidence ? "true" : "false") << std::endl;
-    std::cout << "  Manifold: " << (manifold ? "true" : "false") << std::endl;
-    std::cout << "  Output polygons: " << (outputPolygons ? "true" : "false") << std::endl;
-}
-
-void resetPoissonReconstructionParams() {
-    g_params = PoissonParams();
-}
-
-void setDebugPoissonParams() {
-    g_params.voxelSize = 0.02f;           // 增大体素减少计算量
-    g_params.triangulationStep = 4;       // 更大的步长
-    g_params.depthThreshold = 1000.0f;    // 很大的深度阈值
-    g_params.depthDiffThreshold = 0.5f;   // 更宽松的深度差异阈值
-    g_params.maxGridSize = 150;           // 减小最大网格尺寸
-    g_params.sdfNeighbors = 4;            // 减少SDF邻居数提速
-    std::cout << "[DEBUG] Debug mode parameters set (fast mode)" << std::endl;
-}
-
-void setFastPoissonParams() {
-    g_params.voxelSize = 0.05f;           // 很大的体素
-    g_params.triangulationStep = 8;       // 很大的步长
-    g_params.depthThreshold = 1000.0f;    // 很大的深度阈值
-    g_params.depthDiffThreshold = 0.8f;   // 很宽松的深度差异阈值
-    g_params.maxGridSize = 80;            // 很小的最大网格尺寸
-    g_params.sdfNeighbors = 3;            // 最少SDF邻居数
-    g_params.normalNeighbors = 8;         // 减少法线邻居
-    std::cout << "[DEBUG] Fast preview mode parameters set" << std::endl;
-}
+// void setPoissonReconstructionParams(float voxelSize, int triangulationStep, float depthThreshold) { ... }
+// void setAdvancedPoissonParams(int maxGridSize, int normalNeighbors, int sdfNeighbors) { ... }
+// void setPCLPoissonParams(int depth, int solverDivide, float samplesPerNode,
+//                         bool confidence, bool manifold, bool outputPolygons) { ... }
+// void resetPoissonReconstructionParams() { ... }
+// void setDebugPoissonParams() { ... }
+// void setFastPoissonParams() { ... }
 
 // ==================== PCL辅助函数 ====================
 
@@ -194,10 +123,10 @@ float calculateWeightedSDF(float worldX, float worldY, float worldZ,
     
     float weightedSDF = 0.0f;
     float totalWeight = 0.0f;
-    float sigma = g_params.voxelSize * 2.0f;
+    float sigma = Config::instance().meshParams.voxelSize * 2.0f;
     
     // 使用简化的最近邻搜索 - 只检查距离阈值内的点
-    float searchRadius = g_params.voxelSize * 5.0f; // 搜索半径
+    float searchRadius = Config::instance().meshParams.voxelSize * 5.0f; // 搜索半径
     float searchRadius2 = searchRadius * searchRadius;
     
     std::vector<std::pair<float, int>> candidates;
@@ -292,10 +221,10 @@ std::vector<PointWithNormal> estimateNormalsFromDepth(const cv::Mat& depthMap, c
     double minVal, maxVal;
     cv::minMaxLoc(processedDepth, &minVal, &maxVal);
     std::cout << "[DEBUG] Depth value range: [" << minVal << ", " << maxVal << "]" << std::endl;
-    std::cout << "[DEBUG] Depth threshold: " << g_params.depthThreshold << std::endl;
+    std::cout << "[DEBUG] Depth threshold: " << Config::instance().meshParams.depthThreshold << std::endl;
     
     // Use step size for efficiency
-    int step = g_params.triangulationStep;
+    int step = Config::instance().meshParams.triangulationStep;
     
     // 预分配内存
     int expectedPoints = ((processedDepth.rows - 2*step) / step) * ((processedDepth.cols - 2*step) / step);
@@ -316,7 +245,7 @@ std::vector<PointWithNormal> estimateNormalsFromDepth(const cv::Mat& depthMap, c
             float centerDepth = processedDepth.at<float>(y, x);
             
             // Filter invalid depth values
-            if (centerDepth <= 0 || centerDepth > g_params.depthThreshold || 
+            if (centerDepth <= 0 || centerDepth > Config::instance().meshParams.depthThreshold || 
                 std::isnan(centerDepth) || std::isinf(centerDepth)) {
                 continue;
             }
@@ -336,7 +265,7 @@ std::vector<PointWithNormal> estimateNormalsFromDepth(const cv::Mat& depthMap, c
             validNeighborCount++;
             
             // Additional neighbor validation for better normal estimation
-            float depthDiffThreshold = centerDepth * g_params.depthDiffThreshold;
+            float depthDiffThreshold = centerDepth * Config::instance().meshParams.depthDiffThreshold;
             if (std::abs(leftDepth - centerDepth) > depthDiffThreshold ||
                 std::abs(rightDepth - centerDepth) > depthDiffThreshold ||
                 std::abs(topDepth - centerDepth) > depthDiffThreshold ||
@@ -548,7 +477,7 @@ Mesh generatePoissonMesh(const cv::Mat& depthMap, const cv::Mat& colorImage, con
         for (const auto& pwn : pointsWithNormals) {
             points3D.push_back(pwn.point);
         }
-        std::vector<PointWithNormal> refinedNormals = estimateNormals(points3D, g_params.normalNeighbors);
+        std::vector<PointWithNormal> refinedNormals = estimateNormals(points3D, Config::instance().meshParams.normalNeighbors);
         if (refinedNormals.size() == pointsWithNormals.size()) {
             pointsWithNormals = refinedNormals;
             std::cout << "[INFO] Normal refinement completed" << std::endl;
@@ -563,16 +492,16 @@ Mesh generatePoissonMesh(const cv::Mat& depthMap, const cv::Mat& colorImage, con
                 convertToPCLPointCloud(pointsWithNormals);
             pcl::Poisson<pcl::PointNormal> poisson;
             poisson.setInputCloud(cloud_with_normals);
-            poisson.setDepth(g_params.pclDepth);
-            poisson.setSolverDivide(g_params.pclSolverDivide);
-            poisson.setSamplesPerNode(g_params.pclSamplesPerNode);
-            poisson.setConfidence(g_params.pclConfidence);
-            poisson.setManifold(g_params.pclManifold);
-            poisson.setOutputPolygons(g_params.pclOutputPolygons);
+            poisson.setDepth(Config::instance().meshParams.poissonDepth);
+            poisson.setSolverDivide(Config::instance().meshParams.poissonSolverDivide);
+            poisson.setSamplesPerNode(Config::instance().meshParams.poissonSamplesPerNode);
+            poisson.setConfidence(Config::instance().meshParams.poissonUseConfidence);
+            poisson.setManifold(Config::instance().meshParams.poissonManifold);
+            poisson.setOutputPolygons(Config::instance().meshParams.poissonOutputPolygons);
             std::cout << "[INFO] PCL Poisson parameters:" << std::endl;
-            std::cout << "  Depth: " << g_params.pclDepth << std::endl;
-            std::cout << "  Solver divide: " << g_params.pclSolverDivide << std::endl;
-            std::cout << "  Samples per node: " << g_params.pclSamplesPerNode << std::endl;
+            std::cout << "  Depth: " << Config::instance().meshParams.poissonDepth << std::endl;
+            std::cout << "  Solver divide: " << Config::instance().meshParams.poissonSolverDivide << std::endl;
+            std::cout << "  Samples per node: " << Config::instance().meshParams.poissonSamplesPerNode << std::endl;
             pcl::PolygonMesh pclMesh;
             poisson.reconstruct(pclMesh);
             mesh = convertFromPCLMesh(pclMesh, colorImage, K);

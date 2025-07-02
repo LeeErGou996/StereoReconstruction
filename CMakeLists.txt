@@ -35,6 +35,7 @@ add_executable(main
     src/sparseMatching.cpp
     src/pointCloudFilter.cpp
     src/poissonReconstruction.cpp
+    src/config.cpp
 )
 
 # 添加测试程序
@@ -42,6 +43,7 @@ add_executable(test_poisson
     src/test_poisson.cpp
     src/poissonReconstruction.cpp
     src/meshReconstruction.cpp
+    src/config.cpp
 )
 
 target_link_libraries(main ${OpenCV_LIBS})

@@ -146,7 +146,7 @@ std::vector<Point3D> generatePointCloud(const cv::Mat& depthMap,
     // Pre-calculate dimensions and estimate capacity
     int totalPixels = processedDepth.rows * processedDepth.cols;
     int totalIterations = totalPixels / (g_params.triangulationStep * g_params.triangulationStep);
-    int estimatedPoints = totalIterations / 4; // Estimate 25% valid points
+    int estimatedPoints = totalIterations; // Estimate 25% valid points
     
     // Pre-allocate vector to avoid reallocation
     points.reserve(estimatedPoints);
@@ -254,13 +254,13 @@ Mesh generateTriangulatedMesh(const cv::Mat& depthMap,
     bool hasColor = !colorImage.empty() && (colorImage.size() == depthMap.size());
     
     // Use larger step for triangulation to reduce computation
-    int step = g_params.triangulationStep > 0 ? g_params.triangulationStep : 4;
+    int step = g_params.triangulationStep > 0 ? g_params.triangulationStep : 1;
     
     // Pre-calculate dimensions and estimate capacity
     int totalRows = processedDepth.rows / step;
     int totalCols = processedDepth.cols / step;
     int totalIterations = totalRows * totalCols;
-    int estimatedPoints = totalIterations / 2; // Estimate 50% valid points
+    int estimatedPoints = totalIterations; // Estimate 50% valid points
     
     // Pre-allocate vectors to avoid reallocation
     std::vector<cv::Point2f> points2D;

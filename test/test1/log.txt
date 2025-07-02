@@ -2,15 +2,15 @@ Successfully read images, size: [1920 x 1080]
 Color image channels: 3
 Original color images saved
 [INFO] DisparityProcessor initialized with default parameters
-Using ORB feature detector
+Using SIFT feature detector
 
 2. Feature detection and matching...
-[INFO] Detected feature points: Left image=2000, Right image=2000
-[INFO] Using HAMMING distance matcher (binary descriptor)
-[INFO] Number of matches after Lowe's ratio test: 600
+[INFO] Detected feature points: Left image=1000, Right image=1000
+[INFO] Using L2 distance matcher[INFO] DisparityProcessor destroyed
+ matches after Lowe's ratio test: 434
 [INFO] Final number of matches used: 200
-[INFO] Number of inliers after geometric verification: 197 / 200
-Successfully matched 197 feature points
+[INFO] Number of inliers after geometric verification: 184 / 200
+Successfully matched 184 feature points
 Color feature matching image saved
 
 3. Pose estimation...
@@ -27,72 +27,46 @@ Successfully saved disparity map and related outputs
 [DEBUG] Disparity map info: rows=1080, cols=1920, type=3 (CV_16S=3, CV_32F=5)
 [DEBUG] Q matrix info: rows=4, cols=4, type=6
 [DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
-[DEBUG] Valid disparity value range: [39, 136]
-[DEBUG] Number of valid disparity pixels: 868674 / 2073600
+[DEBUG] Valid disparity value range: [1, 135.75]
+[DEBUG] Number of valid disparity pixels: 487990 / 2073600
 [DEBUG] XYZ map info: rows=1080, cols=1920, type=21
-[DEBUG] Valid depth range: [12.9282, 44.2322] unit
-[DEBUG] Number of valid depth pixels: 868673
+[DEBUG] Valid depth range: [12.7716, 866.87] unit
+[DEBUG] Number of valid depth pixels: 487220
 [DEBUG] Center depth: 0
-[DEBUG] Use 98th percentile normalization: [12.9282, 29.0017]
+[DEBUG] Use 98th percentile normalization: [12.7716, 31.4154]
 Successfully saved depth maps
 
 7. Mesh reconstruction...
 [INFO] Mesh reconstruction parameters updated
-[INFO] Reconstruction mode: Poisson Surface Reconstruction
+[INFO] Reconstruction mode: Point Cloud
 [INFO] Starting Poisson surface reconstruction...
 [INFO] Estimating normals from depth map...
 [DEBUG] Input depth map: 1080x1920, type=5
 [DEBUG] Processed depth map type: 5
-[DEBUG] Depth value range: [0, 44.2322]
-[DEBUG] Depth threshold: 100
-[DEBUG] Expected points: 515404 (step=2)
+[DEBUG] Depth value range: [0, 866.87]
+[DEBUG] Depth threshold: 5000
+[DEBUG] Expected points: 81748 (step=5)
 [DEBUG] Processing statistics:
-  Total pixels processed: 515404
-  Valid depth pixels: 216903
-  Valid neighbor pixels: 178244
-[INFO] Estimated normals for 178069 points
+  Total pixels processed: 81748
+  Valid depth pixels: 19472
+  Valid neighbor pixels: 9025
+[INFO] Estimated normals for 8998 points
 [INFO] Refining normals using 3D neighborhood analysis...
 [INFO] Estimating normals using optimized PCA (k=15)...
-[INFO] Estimated normals for 178069 points
+[INFO] Estimated normals for 8998 points
 [INFO] Normal refinement completed
-[INFO] Using 178069 points for reconstruction
+[INFO] Using 8998 points for reconstruction
 [INFO] Using PCL Poisson surface reconstruction...
 [INFO] PCL Poisson parameters:
-  Depth: 8
+  Depth: 12
   Solver divide: 8
-  Samples per node: 1.5
+  Samples per node: 3
 [INFO] PCL Poisson reconstruction completed
-[INFO] Generated mesh with 88645 vertices and 176973 faces
-[INFO] Starting Poisson surface reconstruction...
-[INFO] Estimating normals from depth map...
-[DEBUG] Input depth map: 1080x1920, type=5
-[DEBUG] Processed depth map type: 5
-[DEBUG] Depth value range: [0, 44.2322]
-[DEBUG] Depth threshold: 2.5
-[DEBUG] Expected points: 2067604 (step=1)
-[DEBUG] Processing statistics:
-  Total pixels processed: 2067604
-  Valid depth pixels: 0
-  Valid neighbor pixels: 0
-[INFO] Estimated normals for 0 points
-Error: Not enough points with normals for Poisson reconstruction
-[INFO] Starting Poisson surface reconstruction...
-[INFO] Estimating normals from depth map...
-[DEBUG] Input depth map: 1080x1920, type=5
-[DEBUG] Processed depth map type: 5
-[DEBUG] Depth value range: [0, 44.2322]
-[DEBUG] Depth threshold: 2
-[DEBUG] Expected points: 128104 (step=4)
-[DEBUG] Processing statistics:
-  Total pixels processed: 128104
-  Valid depth pixels: 0
-  Valid neighbor pixels: 0
-[INFO] Estimated normals for 0 points
-Error: Not enough points with normals for Poisson reconstruction
+[INFO] Generated mesh with 21148 vertices and 42081 faces
 [INFO] Saving mesh to: ../test//test1_poisson_mesh.ply
 [INFO] Format: ply
-[INFO] Vertices: 88645, Faces: 176973
-[INFO] Successfully saved mesh with 88645 vertices and 176973 faces to ../test//test1_poisson_mesh.ply
+[INFO] Vertices: 21148, Faces: 42081
+[INFO] Successfully saved mesh with 21148 vertices and 42081 faces to ../test//test1_poisson_mesh.ply
 [INFO] Poisson mesh saved to: ../test//test1_poisson_mesh.ply
 Successfully completed 3D reconstruction
 

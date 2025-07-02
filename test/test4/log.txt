@@ -1,0 +1,74 @@
+Successfully read images, size: [1920 x 1080]
+Color image channels: 3
+Original color images saved
+[INFO] DisparityProcessor initialized with default parameters
+Using SIFT feature detector
+
+2. Feature detection and matching...
+[INFO] Detected feature points: Left image=1000, Right image=1002
+[INFO] Using L2 distance matcher[INFO] DisparityProcessor destroyed
+ matches after Lowe's ratio test: 268
+[INFO] Final number of matches used: 200
+[INFO] Number of inliers after geometric verification: 167 / 200
+Successfully matched 167 feature points
+Color feature matching image saved
+
+3. Pose estimation...
+Successfully estimated relative pose
+
+4. Stereo rectification...
+Stereo rectification completed successfully
+Rectified color images saved
+
+5. Disparity computation...
+Successfully saved disparity map and related outputs
+
+6. Depth map computation...
+[DEBUG] Disparity map info: rows=1080, cols=1920, type=3 (CV_16S=3, CV_32F=5)
+[DEBUG] Q matrix info: rows=4, cols=4, type=6
+[DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
+[DEBUG] Valid disparity value range: [30.625, 255]
+[DEBUG] Number of valid disparity pixels: 237814 / 2073600
+[DEBUG] XYZ map info: rows=1080, cols=1920, type=21
+[DEBUG] Valid depth range: [6.89502, 57.1782] unit
+[DEBUG] Number of valid depth pixels: 237811
+[DEBUG] Center depth: 8.03074
+[DEBUG] Use 98th percentile normalization: [6.89502, 18.8298]
+Successfully saved depth maps
+
+7. Mesh reconstruction...
+[INFO] Mesh reconstruction parameters updated
+[INFO] Reconstruction mode: Point Cloud
+[INFO] Starting Poisson surface reconstruction...
+[INFO] Estimating normals from depth map...
+[DEBUG] Input depth map: 1080x1920, type=5
+[DEBUG] Processed depth map type: 5
+[DEBUG] Depth value range: [0, 57.1782]
+[DEBUG] Depth threshold: 5000
+[DEBUG] Expected points: 81748 (step=5)
+[DEBUG] Processing statistics:
+  Total pixels processed: 81748
+  Valid depth pixels: 9567
+  Valid neighbor pixels: 3148
+[INFO] Estimated normals for 3147 points
+[INFO] Refining normals using 3D neighborhood analysis...
+[INFO] Estimating normals using optimized PCA (k=15)...
+[INFO] Estimated normals for 3147 points
+[INFO] Normal refinement completed
+[INFO] Using 3147 points for reconstruction
+[INFO] Using PCL Poisson surface reconstruction...
+[INFO] PCL Poisson parameters:
+  Depth: 12
+  Solver divide: 8
+  Samples per node: 3
+[INFO] PCL Poisson reconstruction completed
+[INFO] Generated mesh with 11270 vertices and 22338 faces
+[INFO] Saving mesh to: ../test//test4_poisson_mesh.ply
+[INFO] Format: ply
+[INFO] Vertices: 11270, Faces: 22338
+[INFO] Successfully saved mesh with 11270 vertices and 22338 faces to ../test//test4_poisson_mesh.ply
+[INFO] Poisson mesh saved to: ../test//test4_poisson_mesh.ply
+Successfully completed 3D reconstruction
+
+8. Processing completed for test4!
+Output files saved to: ../test//test4/

@@ -10,12 +10,6 @@
 #include "8point.h"
 #include "denseMatching.h"
 
-enum class FeatureType {
-    SIFT = 1,
-    SURF = 2,
-    ORB = 3
-};
-
 class DisparityProcessor {
 public:
     // Constructor and destructor

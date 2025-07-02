@@ -23,24 +23,6 @@ std::vector<PointWithNormal> estimateNormals(const std::vector<Point3D>& points,
 
 // ==================== 参数配置接口 ====================
 
-// 基础参数设置
-void setPoissonReconstructionParams(float voxelSize = 0.005f, 
-                                   int triangulationStep = 2, 
-                                   float depthThreshold = 2.0f);
-
-// 高级参数设置
-void setAdvancedPoissonParams(int maxGridSize = 200, 
-                             int normalNeighbors = 15, 
-                             int sdfNeighbors = 8);
-
-// PCL Poisson重建参数设置
-void setPCLPoissonParams(int depth = 8,
-                        int solverDivide = 8,
-                        float samplesPerNode = 1.5f,
-                        bool confidence = false,
-                        bool manifold = false,
-                        bool outputPolygons = false);
-
 // 重置为默认参数
 void resetPoissonReconstructionParams();
 
