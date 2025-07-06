@@ -1,0 +1,90 @@
+Algorithm Comparison Results for test1
+================================================
+Note: Ground truth depth maps are converted to meters (0-255 -> 0-10m) for comparison
+Middlebury-style disparity evaluation metrics are also included
+Color disparity quality metrics are now the primary evaluation focus
+SGBM:
+  Color Disparity Quality Metrics (Primary Focus):
+    Visual Quality Score: 0.548251 (0-1, higher is better)
+    Contrast: 1.000000 (0-1, higher is better)
+    Saturation: 0.189953 (0-1, higher is better)
+    Brightness: 0.157112 (0-1, moderate is best)
+    Sharpness: 1.000000 (0-1, higher is better)
+    Smoothness: 0.581840 (0-1, higher is better)
+    Edge Preservation: 0.286945 (0-1, higher is better)
+    Noise Level: 0.041811 (0-1, lower is better)
+    Color Consistency: 0.580918 (0-1, higher is better)
+    Depth Perception: 0.000000 (0-1, higher is better)
+  Depth Metrics (meters):
+    MSE: 1727.829787
+    RMSE: 41.567172
+    MAE: 29.254550
+  Middlebury Disparity Metrics:
+    Error Percentage (>1px): 100.000000%
+    RMS Error: 1577.104263 pixels
+    Mean Error: 1531.323971 pixels
+    Std Dev: 377.233449 pixels
+    95% Percentile: 2323.000000 pixels
+    Valid Pixel Ratio: 21.827739%
+    Dynamic Range: 1283.000000 pixels
+
+BM:
+  Color Disparity Quality Metrics (Primary Focus):
+    Visual Quality Score: 0.558100 (0-1, higher is better)
+    Contrast: 1.000000 (0-1, higher is better)
+    Saturation: 0.284447 (0-1, higher is better)
+    Brightness: 0.239061 (0-1, moderate is best)
+    Sharpness: 1.000000 (0-1, higher is better)
+    Smoothness: 0.415932 (0-1, higher is better)
+    Edge Preservation: 0.388059 (0-1, higher is better)
+    Noise Level: 0.047719 (0-1, lower is better)
+    Color Consistency: 0.434295 (0-1, higher is better)
+    Depth Perception: 0.000000 (0-1, higher is better)
+  Depth Metrics (meters):
+    MSE: 34208.640689
+    RMSE: 184.955780
+    MAE: 175.849653
+  Middlebury Disparity Metrics:
+    Error Percentage (>1px): 100.000000%
+    RMS Error: 1592.670690 pixels
+    Mean Error: 1546.455612 pixels
+    Std Dev: 380.887366 pixels
+    95% Percentile: 2322.000000 pixels
+    Valid Pixel Ratio: 32.847994%
+    Dynamic Range: 4019.000000 pixels
+
+ELAS:
+  Color Disparity Quality Metrics (Primary Focus):
+    Visual Quality Score: 0.552269 (0-1, higher is better)
+    Contrast: 1.000000 (0-1, higher is better)
+    Saturation: 0.193191 (0-1, higher is better)
+    Brightness: 0.202488 (0-1, moderate is best)
+    Sharpness: 1.000000 (0-1, higher is better)
+    Smoothness: 0.453421 (0-1, higher is better)
+    Edge Preservation: 0.326220 (0-1, higher is better)
+    Noise Level: 0.047416 (0-1, lower is better)
+    Color Consistency: 0.561899 (0-1, higher is better)
+    Depth Perception: 0.000000 (0-1, higher is better)
+  Depth Metrics (meters):
+    MSE: 1529.038550
+    RMSE: 39.102923
+    MAE: 23.744532
+  Middlebury Disparity Metrics:
+    Error Percentage (>1px): 94.414968%
+    RMS Error: 102.877996 pixels
+    Mean Error: -73.502823 pixels
+    Std Dev: -1.000000 pixels
+    95% Percentile: 142.000000 pixels
+    Valid Pixel Ratio: 26.195939%
+    Dynamic Range: 114.868324 pixels
+
+Best algorithm (highest visual quality): BM
+Best Visual Quality Score: 0.558100
+Best algorithm (highest contrast): SGBM
+Best Contrast: 1.000000
+Best algorithm (highest sharpness): SGBM
+Best Sharpness: 1.000000
+Best algorithm (lowest MSE): ELAS
+Best MSE: 1529.038550
+Best algorithm (lowest disparity error %): ELAS
+Best Error Percentage: 94.414968%

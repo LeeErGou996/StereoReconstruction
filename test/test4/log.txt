@@ -62,11 +62,11 @@ Successfully saved depth maps
   Solver divide: 8
   Samples per node: 3
 [INFO] PCL Poisson reconstruction completed
-[INFO] Generated mesh with 11270 vertices and 22338 faces
+[INFO] Generated mesh with 11091 vertices and 21945 faces
 [INFO] Saving mesh to: ../test//test4_poisson_mesh.ply
 [INFO] Format: ply
-[INFO] Vertices: 11270, Faces: 22338
-[INFO] Successfully saved mesh with 11270 vertices and 22338 faces to ../test//test4_poisson_mesh.ply
+[INFO] Vertices: 11091, Faces: 21945
+[INFO] Successfully saved mesh with 11091 vertices and 21945 faces to ../test//test4_poisson_mesh.ply
 [INFO] Poisson mesh saved to: ../test//test4_poisson_mesh.ply
 Successfully completed 3D reconstruction
 

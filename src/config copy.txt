@@ -60,13 +60,13 @@ disp12MaxDiff=5
 
 # ========== Poisson重建高级参数 ==========
 # poissonDepth: 八叉树深度，越大mesh越精细，推荐8~12，默认8
-poissonDepth=13
+poissonDepth=12
 # poissonSolverDivide: 求解器分割深度，通常与poissonDepth一致
-poissonSolverDivide=14
+poissonSolverDivide=8
 # poissonSamplesPerNode: 每节点采样点数，影响细节和噪声，推荐1.0~3.0
 poissonSamplesPerNode=3
 # poissonFullDepth: 完全重建深度，影响大尺度结构，推荐4~8
-poissonFullDepth=10
+poissonFullDepth=8.0
 # poissonTrim: mesh裁剪参数，0为不裁剪，>0可去除边缘伪影
 poissonTrim=0.0
 # poissonUseConfidence: 是否使用置信度权重，true/false
@@ -82,5 +82,5 @@ poissonOutputPolygons=false
 # normalNeighbors: 法线估计时的邻居点数，推荐10~30
 # 越大法线更平滑，越小更敏感
 
-depthDiffThreshold=0.1
-normalNeighbors=10 
+depthDiffThreshold=0.05
+normalNeighbors=15 

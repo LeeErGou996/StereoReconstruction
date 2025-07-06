@@ -1,0 +1,126 @@
+=== Dense Stereo Depth Generation System with Algorithm Comparison ===
+Start time: Sun Jul  6 12:43:27 2025
+
+Left images directory: ../data/left/
+Right images directory: ../data/right/
+Camera directory: ../data/camera/
+Ground truth directory: ../data/ground/
+Output directory: ../output/
+Output directory created/verified: ../output/
+Found 4 left images
+Warning: No corresponding ground truth depth found for eth1
+Successfully loaded camera intrinsics from: ../data/camera/test1.txt
+Camera matrix K:
+[1733.74, 0, 792.27;
+ 0, 1733.74, 541.89;
+ 0, 0, 1]
+
+=== Processing stereo pair: test1 ===
+Left image: ../data/left/test1.png
+Right image: ../data/right/test1.png
+Ground truth: ../data/ground/test1.png
+Output directory: ../output//test1/
+----------------------------------------
+Successfully read images, size: [1920 x 1080]
+Original images and ground truth saved
+
+1. Feature-based pose estimation and stereo rectification...
+Using 8-point algorithm to estimate R and t parameters
+Successfully estimated pose using 8-point algorithm
+Estimated rotation matrix R:
+[0.9999128985339866, -0.002603147973725197, 0.01293904810983414;
+ 0.002610779727646061, 0.9999964277625168, -0.0005729672058525832;
+ -0.01293751037006054, 0.0006066983040681517, 0.9999161228536083]
+Estimated translation vector t:
+[-0.9996037217703352;
+ -0.002971918401205377;
+ -0.02799226900254837]
+Stereo rectification completed successfully
+Rectified color images saved
+
+2. Processing algorithm: SGBM...
+Color disparity quality evaluation completed for SGBM
+  Visual Quality Score: 0.548251
+  Contrast: 1.000000
+  Sharpness: 1.000000
+  Smoothness: 0.581840
+  Noise Level: 0.041811
+Disparity computation completed for SGBM
+Depth computation completed for SGBM
+SGBM depth range: [0.000000, 2.512287]
+Ground truth depth range: [0.000000, 255.000000]
+SGBM Error Metrics (meters):
+  MSE: 1727.829787 m²
+  RMSE: 41.567172 m
+  MAE: 29.254550 m
+SGBM Middlebury Disparity Metrics:
+  Error Percentage (>1px): 100.000000%
+  RMS Error: 1577.104263 pixels
+  Mean Error: 1531.323971 pixels
+  Std Dev: 377.233449 pixels
+  95% Percentile: 2323.000000 pixels
+  Valid Pixel Ratio: 21.827739%
+  Dynamic Range: 1283.000000 pixels
+
+2. Processing algorithm: BM...
+Color disparity quality evaluation completed for BM
+  Visual Quality Score: 0.558100
+  Contrast: 1.000000
+  Sharpness: 1.000000
+  Smoothness: 0.415932
+  Noise Level: 0.047719
+Disparity computation completed for BM
+Depth computation completed for BM
+BM depth range: [0.000000, 138.699203]
+Ground truth depth range: [0.000000, 255.000000]
+BM Error Metrics (meters):
+  MSE: 34208.640689 m²
+  RMSE: 184.955780 m
+  MAE: 175.849653 m
+BM Middlebury Disparity Metrics:
+  Error Percentage (>1px): 100.000000%
+  RMS Error: 1592.670690 pixels
+  Mean Error: 1546.455612 pixels
+  Std Dev: 380.887366 pixels
+  95% Percentile: 2322.000000 pixels
+  Valid Pixel Ratio: 32.847994%
+  Dynamic Range: 4019.000000 pixels
+
+2. Processing algorithm: ELAS...
+Starting ELAS algorithm with preset: CUSTOM
+Color disparity quality evaluation completed for ELAS
+  Visual Quality Score: 0.552269
+  Contrast: 1.000000
+  Sharpness: 1.000000
+  Smoothness: 0.453421
+  Noise Level: 0.047416
+Disparity computation completed for ELAS
+Depth computation completed for ELAS
+ELAS depth range: [0.000000, 2.496386]
+Ground truth depth range: [0.000000, 255.000000]
+ELAS Error Metrics (meters):
+  MSE: 1529.038550 m²
+  RMSE: 39.102923 m
+  MAE: 23.744532 m
+ELAS Middlebury Disparity Metrics:
+  Error Percentage (>1px): 94.414968%
+  RMS Error: 102.877996 pixels
+  Mean Error: -73.502823 pixels
+  Std Dev: -1.000000 pixels
+  95% Percentile: 142.000000 pixels
+  Valid Pixel Ratio: 26.195939%
+  Dynamic Range: 114.868324 pixels
+Error comparison results saved to: ../output//test1/error_comparison.txt
+
+4. Processing completed for test1!
+Output files saved to: ../output//test1/
+Warning: No corresponding ground truth depth found for test3
+Warning: No corresponding ground truth depth found for test4
+
+=== Processing Summary ===
+Total stereo pairs found: 4
+Successfully processed: 1
+Failed: 3
+End time: Sun Jul  6 12:43:38 2025
+
+Total processing time: 11 seconds

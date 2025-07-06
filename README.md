@@ -30,6 +30,9 @@ Then open your browser and visit `http://localhost:8443` to access the code-serv
 - **Point Cloud Generation**: Reprojects depth to 3D colored point clouds.
 - **Mesh Reconstruction**: Exports 3D mesh/point cloud in PLY format, with color.
 - **Comprehensive Output**: Saves all intermediate and final results for analysis and visualization.
+- **Algorithm Comparison System** (DenseCompar): Multi-algorithm stereo matching comparison (SGBM, BM, ELAS) with 8-point pose estimation and innovative visual quality evaluation.
+- **Visual Quality Assessment**: Novel color disparity quality metrics for algorithm evaluation and optimization.
+- **Hot-Reloadable Configuration**: Runtime parameter tuning without recompilation for rapid experimentation.
 
 ## Directory Structure
 
@@ -52,6 +55,14 @@ workspace/rootba/
 │   ├── 8point.h/.cpp            # 8-point pose estimation
 │   ├── colorUtils.cpp           # Color fusion utilities
 │   └── CMakeLists.txt           # Source build config
+├── denseCompar/           # Stereo algorithm comparison system (7.5 update)
+│   ├── main.cpp                 # Multi-algorithm comparison pipeline
+│   ├── color_disparity_quality_metrics.h/.cpp # Visual quality evaluation
+│   ├── config.h/.cpp            # Configuration management
+│   ├── bmMatcher.h/.cpp, sgbmMatcher.h/.cpp, elasMatcher.h/.cpp # Dense matching algorithms
+│   ├── 8point.h/.cpp, sparseMatching.h/.cpp                    # Sparse matching & pose estimation
+│   ├── data/, output/           # Input/output directories
+│   └── README.md                # DenseCompar documentation
 ├── test/                  # Output results (auto-generated)
 │   ├── disparity.png, disparity_color_jet.png, ...
 │   ├── depth.png, depth_color.png, depth_raw.exr
@@ -87,6 +98,16 @@ workspace/rootba/
    ```
    The program will process `data/left.png` and `data/right.png` and output results to the `test/` directory.
 
+4. **Run DenseCompar Algorithm Comparison** (Optional)
+   ```bash
+   cd denseCompar
+   mkdir build && cd build
+   cmake ..
+   make
+   ./denseCompar
+   ```
+   This will compare multiple stereo algorithms (SGBM, BM, ELAS) with 8-point pose estimation and generate quality reports.
+
 ## Output Files (in `test/`)
 - `left_original.png`, `right_original.png`: Original color images
 - `left_rectified.png`, `right_rectified.png`: Rectified color images
@@ -121,6 +142,15 @@ This project is for academic and research use. Please cite appropriately if used
 
 ## Update Log
 
+### 7.5 ergou update - DenseCompar Algorithm Comparison System
+- **Multi-Algorithm Stereo Comparison**: Created `denseCompar/` module supporting SGBM, BM, and ELAS algorithms with full parameter control and 8-point pose estimation
+- **Innovative Visual Quality Evaluation**: Implemented novel color disparity quality metrics (contrast, sharpness, smoothness, etc.) with weighted scoring system
+- **Hot-Reloadable Configuration**: All parameters configurable via `config.txt` without recompilation
+- **Comprehensive Analysis**: Multiple output formats, traditional error metrics, and visual quality assessment
+- **Code Quality**: Cleaned deprecated code, fixed compilation issues, and improved documentation
+
+The DenseCompar system provides both traditional error-based metrics and innovative visual quality assessment for comprehensive stereo algorithm comparison and optimization.
+
 ### 7.2 ergou update
 - **Implemented Delaunay Triangulation and Poisson Surface Reconstruction**:
   - Added Delaunay triangulation algorithm for mesh generation from point clouds
@@ -145,4 +175,6 @@ This project is for academic and research use. Please cite appropriately if used
   - Created output subfolders named after input filenames for better organization
   - Added batch processing capability for multiple image pairs
   - Implemented comprehensive logging system with log.txt files in each output subfolder
-  - Enhanced file organization and result management 
+  - Enhanced file organization and result management
+
+
