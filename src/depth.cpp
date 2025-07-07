@@ -5,7 +5,8 @@ namespace Depth {
 bool computeDepthMap(const cv::Mat& disparity,
                      const cv::Mat& Q,
                      cv::Mat& depthMapOut,
-                     const std::string& outputPath) {
+                     const std::string& outputPath,
+                     bool useCustom) {
 
     // Debug: Print disparity and Q matrix info
     std::cout << "[DEBUG] Disparity map info: rows=" << disparity.rows 
@@ -54,20 +55,52 @@ bool computeDepthMap(const cv::Mat& disparity,
     std::cout << "[DEBUG] Valid disparity value range: [" << minDisp << ", " << maxDisp << "]" << std::endl;
     std::cout << "[DEBUG] Number of valid disparity pixels: " << cv::countNonZero(validMask) 
               << " / " << (disparity.rows * disparity.cols) << std::endl;
-
-    // 3D re-projection
+    
+    // reprojectImageTo3D
     cv::Mat xyz;
-    cv::reprojectImageTo3D(processedDisparity, xyz, Q, true, CV_32F);
+    if (useCustom && Q.rows == 4 && Q.cols == 4 && cv::checkRange(Q)) {
+        std::cout << "[DEBUG] Using custom depth computation (manual triangulation from disparity)\n";
 
-    // Debug: Print some sample xyz values
-    std::cout << "[DEBUG] XYZ map info: rows=" << xyz.rows 
-              << ", cols=" << xyz.cols 
-              << ", type=" << xyz.type() << std::endl;
+        float fx = Q.at<double>(2, 3);  // fx = Q[2][3]
+        float baseline = -1.0f / Q.at<double>(3, 2); // baseline = -1 / Q[3][2]
+        float cx = Q.at<double>(0, 3);  // cx = Q[0][3]
+        float cy = Q.at<double>(1, 3);  // cy = Q[1][3]
 
-    // **Fix 3**: More efficient extraction of depth information
-    std::vector<cv::Mat> xyzChannels;
-    cv::split(xyz, xyzChannels);
-    depthMapOut = xyzChannels[2].clone(); // Z通道即为深度，赋值给输出参数
+        cv::Mat xyz(disparity.size(), CV_32FC3);
+        depthMapOut = cv::Mat::zeros(disparity.size(), CV_32F);
+
+        for (int y = 0; y < disparity.rows; ++y) {
+            for (int x = 0; x < disparity.cols; ++x) {
+                float d = processedDisparity.at<float>(y, x);
+                if (d > 0.0f) {
+                    float Z = fx * baseline / d;
+                    float X = (x - cx) * Z / fx;
+                    float Y = (y - cy) * Z / fx;
+                    xyz.at<cv::Vec3f>(y, x) = cv::Vec3f(X, Y, Z);
+                    depthMapOut.at<float>(y, x) = Z;
+                } else {
+                    xyz.at<cv::Vec3f>(y, x) = cv::Vec3f(0, 0, 0);
+                    depthMapOut.at<float>(y, x) = 0;
+                }
+            }
+        }
+
+        std::cout << "[DEBUG] Custom depth map computed manually from disparity.\n";
+    }
+    else {
+        cv::reprojectImageTo3D(processedDisparity, xyz, Q, true, CV_32F);
+        std::cout << "[DEBUG] Used OpenCV reprojectImageTo3D\n";
+
+        // Debug: Print some sample xyz values
+        std::cout << "[DEBUG] XYZ map info: rows=" << xyz.rows 
+                << ", cols=" << xyz.cols 
+                << ", type=" << xyz.type() << std::endl;
+
+        // **Fix 3**: More efficient extraction of depth information
+        std::vector<cv::Mat> xyzChannels;
+        cv::split(xyz, xyzChannels);
+        depthMapOut = xyzChannels[2].clone();
+    }
 
     // **Fix 4**: Smarter depth value handling
     // Create valid depth mask

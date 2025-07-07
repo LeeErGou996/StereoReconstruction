@@ -34,15 +34,18 @@ Then open your browser and visit `http://localhost:8443` to access the code-serv
 ## Directory Structure
 
 ```
-workspace/rootba/
+/config/workspace/StereoReconstruction/
 ├── CMakeLists.txt         # Project build configuration
 ├── README.md              # Project documentation (this file)
 ├── data/                  # Example input images (left.png, right.png)
 ├── include/               # (Optional) Extra headers
 │   └── stereo_reconstruction.hpp
 ├── lib/                   # External libraries (OpenCV, etc.)
-│   ├── opencv/
-│   └── opencv_contrib/
+│   ├── opencv/            # OpenCV source code
+│   │   ├── build/         # OpenCV build directory
+│   │   └── install/       # OpenCV installation directory
+│   └── opencv_contrib/    # OpenCV contrib modules
+│       └── modules/       # Contrib modules (xfeatures2d, etc.)
 ├── src/                   # Source code
 │   ├── main.cpp                 # Main pipeline entry
 │   ├── disparity.h/.cpp         # Disparity computation & feature matching
@@ -52,40 +55,102 @@ workspace/rootba/
 │   ├── 8point.h/.cpp            # 8-point pose estimation
 │   ├── colorUtils.cpp           # Color fusion utilities
 │   └── CMakeLists.txt           # Source build config
-├── test/                  # Output results (auto-generated)
-│   ├── disparity.png, disparity_color_jet.png, ...
-│   ├── depth.png, depth_color.png, depth_raw.exr
-│   ├── reconstructed_mesh.ply, reconstructed_mesh_simplified.ply
-│   └── ...
+├── build/                 # Project build directory
+└── test/                  # Output results (auto-generated)
+    ├── disparity.png, disparity_color_jet.png, ...
+    ├── depth.png, depth_color.png, depth_raw.exr
+    ├── reconstructed_mesh.ply, reconstructed_mesh_simplified.ply
+    └── ...
 ```
 
 ## Build Instructions
 
 ### Prerequisites
 - CMake >= 3.10
-- GCC/G++
-- OpenCV 4.7.0 (with contrib modules)
+- GCC/G++ (GNU 9.5.0 or later)
 - Git
+- Basic development tools (make, pkg-config, etc.)
 
-### Steps
-1. **Clone OpenCV and Contrib**
-   ```bash
-   cd workspace/rootba/lib/
-   git clone https://github.com/opencv/opencv.git -b 4.7.0
-   git clone https://github.com/opencv/opencv_contrib.git -b 4.7.0
-   ```
-2. **Configure and Build**
-   ```bash
-   cd workspace/rootba
-   mkdir build && cd build
-   cmake ..
-   make
-   ```
-3. **Run the Pipeline**
-   ```bash
-   ./main
-   ```
-   The program will process `data/left.png` and `data/right.png` and output results to the `test/` directory.
+### Step 1: Clone and Setup OpenCV with Contrib Modules
+
+```bash
+# Navigate to the project directory
+cd /config/workspace/StereoReconstruction/
+
+# Create lib directory if it doesn't exist
+mkdir -p lib
+cd lib
+
+# Clone OpenCV (version 4.7.0)
+git clone https://github.com/opencv/opencv.git -b 4.7.0
+
+# Clone OpenCV contrib modules (version 4.7.0)
+git clone https://github.com/opencv/opencv_contrib.git -b 4.7.0
+```
+
+### Step 2: Build OpenCV with Contrib Modules
+
+```bash
+# Navigate to OpenCV directory
+cd /config/workspace/StereoReconstruction/lib/opencv
+
+# Create build directory
+mkdir -p build
+cd build
+
+# Configure CMake with contrib modules (disabled HDF to avoid MPI dependency)
+cmake -DOPENCV_EXTRA_MODULES_PATH=/config/workspace/StereoReconstruction/lib/opencv_contrib/modules \
+      -DCMAKE_INSTALL_PREFIX=/config/workspace/StereoReconstruction/lib/opencv/install \
+      -DBUILD_opencv_hdf=OFF \
+      ..
+
+# Build OpenCV (using half of available CPU cores)
+make -j$(($(nproc)/2))
+
+# Install OpenCV
+make install
+```
+
+**Important Notes:**
+- We disable the HDF module (`-DBUILD_opencv_hdf=OFF`) to avoid MPI dependency issues
+- The build process may take 30-60 minutes depending on your system
+- Make sure you have sufficient disk space (at least 5GB free)
+
+### Step 3: Verify OpenCV Installation
+
+```bash
+# Check if xfeatures2d module is available (required for SIFT/SURF)
+ls /config/workspace/StereoReconstruction/lib/opencv/install/include/opencv2/xfeatures2d.hpp
+
+# Check OpenCV version
+/config/workspace/StereoReconstruction/lib/opencv/install/bin/opencv_version
+```
+
+### Step 4: Build the Project
+
+```bash
+# Navigate back to project root
+cd /config/workspace/StereoReconstruction
+
+# Create build directory
+mkdir -p build
+cd build
+
+# Configure the project
+cmake ..
+
+# Build the project
+make -j$(($(nproc)/2))
+```
+
+### Step 5: Run the Pipeline
+
+```bash
+# Run the stereo reconstruction pipeline
+./main
+```
+
+The program will process `data/left.png` and `data/right.png` and output results to the `test/` directory.
 
 ## Output Files (in `test/`)
 - `left_original.png`, `right_original.png`: Original color images
@@ -96,7 +161,7 @@ workspace/rootba/
 - `disparity_blended.png`, `disparity_blended_strong.png`: Blended color/disparity overlays
 - `depth.png`: Normalized depth map
 - `depth_color.png`: Colorized depth map
-- `depth_raw.exr`: Raw float depth map
+- `depth_raw.exr`: Raw float depth map (requires OpenEXR support)
 - `reconstructed_mesh.ply`: 3D colored point cloud/mesh (PLY)
 - `reconstructed_mesh_simplified.ply`: Downsampled mesh/point cloud
 
@@ -113,6 +178,7 @@ workspace/rootba/
 - Change input/output paths and algorithm options in `src/main.cpp`.
 - Adjust stereo/feature parameters for your dataset.
 - The code is modular and can be extended for new algorithms or output formats.
+- For better performance, adjust the number of CPU cores used in make commands based on your system.
 
 ## License
 This project is for academic and research use. Please cite appropriately if used in publications. 

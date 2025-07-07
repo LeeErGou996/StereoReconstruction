@@ -1,6 +1,7 @@
 #include "disparity.h"
 #include <iostream>
 #include <algorithm>
+#include <opencv2/ximgproc/disparity_filter.hpp>
 
 DisparityProcessor::DisparityProcessor() 
     : numDisparities_(64), blockSize_(9) {
@@ -250,10 +251,11 @@ bool DisparityProcessor::computeDisparityMap(const cv::Mat& rectL, const cv::Mat
                                            cv::Mat& disparity) {
     
     // 创建立体匹配器 - 使用StereoSGBM获得更好的结果
+    // 注释掉优化参数，恢复到原始参数
     cv::Ptr<cv::StereoSGBM> stereo = cv::StereoSGBM::create(
-        0,               // minDisparity
-        numDisparities_, // numDisparities
-        blockSize_       // blockSize
+        0,               // minDisparity (恢复原始值)
+        numDisparities_, // numDisparities (恢复使用成员变量)
+        blockSize_       // blockSize (恢复使用成员变量)
     );
     
     // 设置参数以获得更好的效果
@@ -268,6 +270,30 @@ bool DisparityProcessor::computeDisparityMap(const cv::Mat& rectL, const cv::Mat
     
     // 计算视差图
     stereo->compute(rectL, rectR, disparity);
+
+    // 注释掉WLS滤波代码
+    /*
+    // 计算右视差图（用于WLS滤波）
+    cv::Ptr<cv::StereoSGBM> right_matcher = cv::StereoSGBM::create(
+        16, 512, 7
+    );
+    right_matcher->setMode(cv::StereoSGBM::MODE_SGBM);
+    cv::Mat disparity_right;
+    right_matcher->compute(rectR, rectL, disparity_right);
+
+    // 创建WLS滤波器
+    cv::Ptr<cv::ximgproc::DisparityWLSFilter> wls_filter =
+        cv::ximgproc::createDisparityWLSFilterGeneric(false);
+    wls_filter->setLambda(8000.0);
+    wls_filter->setSigmaColor(1.5);
+
+    // 应用WLS滤波
+    cv::Mat filtered_disparity;
+    wls_filter->filter(disparity, rectL, filtered_disparity, disparity_right);
+
+    // 替换原始disparity为filtered_disparity
+    disparity = filtered_disparity.clone();
+    */
     
     std::cout << "[INFO] Disparity map calculation completed, type: " << disparity.type() << std::endl;
     
@@ -345,7 +371,16 @@ bool DisparityProcessor::computeDisparity(const std::string& leftImagePath,
         std::cerr << "Error: Stereo rectification failed" << std::endl;
         return false;
     }
-    
+
+    // 注释掉图像预处理代码
+    /*
+    // 图像预处理：直方图均衡化和高斯去噪
+    cv::equalizeHist(rectL, rectL);
+    cv::equalizeHist(rectR, rectR);
+    cv::GaussianBlur(rectL, rectL, cv::Size(3,3), 0);
+    cv::GaussianBlur(rectR, rectR, cv::Size(3,3), 0);
+    */
+
     // **New: Rectify color images**
     cv::Mat rectL_color, rectR_color;
     if (!rectifyColorImages(imgL_color, imgR_color, R, t, rectL_color, rectR_color)) {
@@ -370,6 +405,11 @@ bool DisparityProcessor::computeDisparity(const std::string& leftImagePath,
     
     // Save disparity map (8-bit)
     cv::Mat disparity8;
+    // 注释掉修正后的参数，恢复原始参数
+    /*
+    int actualNumDisparities = 512;  // 与SGBM中设置的numDisparities一致
+    disparity.convertTo(disparity8, CV_8U, 255.0/(actualNumDisparities*16.0));
+    */
     disparity.convertTo(disparity8, CV_8U, 255.0/(numDisparities_*16.0));
     
     if (!cv::imwrite(outputPath, disparity8)) {

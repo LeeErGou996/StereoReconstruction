@@ -1,10 +1,41 @@
+# === Build outputs ===
 build/
 *.o
 *.obj
 *.exe
 *.out
+*.a
+*.so
+*.dll
+.ply
+
+# === Logs and temporary files ===
 *.log
-*.user
 *.swp
 *.swo
-*.png 
+*.tmp
+
+# === IDE and editor settings ===
+*.user
+*.vcxproj.*
+*.idea/
+*.vscode/
+
+# === Output images ===
+*.png
+*.jpg
+*.bmp
+*.ppm
+
+# === Dataset and large files ===
+data/
+*.zip
+*.pfm
+*.bin
+*.npy
+
+# === CMake and make artifacts ===
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
