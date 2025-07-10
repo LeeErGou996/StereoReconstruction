@@ -1,5 +1,5 @@
 # 编译输出
-build/
+
 *.o
 *.obj
 *.exe
@@ -35,15 +35,15 @@ Makefile
 *.temp
 
 # 图像文件（如果不需要版本控制）
-*.png
+
 *.jpg
 *.jpeg
 *.bmp
 *.tiff
 
 # 数据文件
-*.ply
-*.obj
+
+
 *.stl
 *.pcd
 
