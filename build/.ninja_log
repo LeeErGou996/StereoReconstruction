@@ -1,0 +1,25 @@
+# ninja log v5
+227104	247100	1751915704809298500	CMakeFiles/main.dir/src/elas/filter.cpp.o	28cc834a3b60d05f
+110971	234330	1751915692025638700	CMakeFiles/main.dir/src/config.cpp.o	b57b707ee4cc72fc
+260382	379681	1751915837392697400	CMakeFiles/test_poisson.dir/src/config.cpp.o	9cd83e09399f7665
+109366	231152	1751915688857798800	CMakeFiles/main.dir/src/pointCloudFilter.cpp.o	6e09a55d7fddc707
+247116	364986	1751915822693056100	CMakeFiles/test_poisson.dir/src/meshReconstruction.cpp.o	857148c76a1a21ae
+126173	194119	1751915651800219700	CMakeFiles/main.dir/src/elas/elas.cpp.o	52098d8925a0acf3
+144527	182822	1751915640537751000	CMakeFiles/main.dir/src/elas/triangle.cpp.o	862ef89f62510e3c
+801733	805367	1751916263051238000	test_poisson	b0dcf68e0882c5a5
+495737	501646	1751915959329001400	main	b862ec9b3562438b
+217	109357	1751915566991968700	CMakeFiles/main.dir/src/denseMatching.cpp.o	a07a04fe51b753c9
+109346	227092	1751915684811197300	CMakeFiles/main.dir/src/sparseMatching.cpp.o	ecf55780403fbaac
+109449	495514	1751915953226491200	CMakeFiles/main.dir/src/poissonReconstruction.cpp.o	b1c0be3ad6cd514
+231164	338628	1751915796327322700	CMakeFiles/main.dir/src/elasMatcher.cpp.o	491ed9d561203e14
+245707	801722	1751916259433072100	CMakeFiles/test_poisson.dir/src/poissonReconstruction.cpp.o	506a724785f62536
+212	109115	1751915566826287500	CMakeFiles/main.dir/src/disparity.cpp.o	2ea13341f48d2070
+214	109437	1751915567144944500	CMakeFiles/main.dir/src/8point.cpp.o	496a2b59b4709af0
+182833	245695	1751915703412538500	CMakeFiles/main.dir/src/elas/descriptor.cpp.o	8fc6fc623f22ca8d
+210	144453	1751915602128609400	CMakeFiles/main.dir/src/main.cpp.o	6bfc93fb52b2d41
+234359	335940	1751915793649460600	CMakeFiles/test_poisson.dir/src/test_poisson.cpp.o	283301136521b74e
+194152	260364	1751915718067587800	CMakeFiles/main.dir/src/elas/matrix.cpp.o	314757dbfa770c99
+221	110956	1751915568669020400	CMakeFiles/main.dir/src/depth.cpp.o	d71d410263328fda
+223	126155	1751915583865909400	CMakeFiles/main.dir/src/meshReconstruction.cpp.o	549913720e8285f4
+475	240068	1751917877953971500	CMakeFiles/main.dir/src/main.cpp.o	6bfc93fb52b2d41
+240072	244286	1751917882154819700	main	b862ec9b3562438b

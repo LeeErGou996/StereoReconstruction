@@ -10,6 +10,7 @@
 #include "8point.h"
 #include "denseMatching.h"
 
+
 class DisparityProcessor {
 public:
     // Constructor and destructor

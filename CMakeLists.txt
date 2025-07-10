@@ -36,6 +36,12 @@ add_executable(main
     src/pointCloudFilter.cpp
     src/poissonReconstruction.cpp
     src/config.cpp
+    src/elas/elas.cpp
+    src/elas/triangle.cpp
+    src/elas/descriptor.cpp
+    src/elas/matrix.cpp
+    src/elas/filter.cpp
+    src/elasMatcher.cpp
 )
 
 # 添加测试程序
@@ -45,6 +51,7 @@ add_executable(test_poisson
     src/meshReconstruction.cpp
     src/config.cpp
 )
+
 
 target_link_libraries(main ${OpenCV_LIBS})
 

@@ -324,6 +324,23 @@ bool processStereoPair(const std::string& leftImagePath, const std::string& righ
         meshPath.pop_back();
     }
     
+    // === 自动插入：点云保存分支 ===
+    if (Config::instance().reconstructionMode == 0) {
+        std::cout << "[INFO] Generating and saving point cloud..." << std::endl;
+        auto points = MeshReconstruction::generatePointCloud(depthMap, rectL_color_filtered, K);
+        if (!points.empty()) {
+            std::string pointCloudPath = pairOutputDir + "pointcloud.ply";
+            if (MeshReconstruction::savePointCloudPLY(points, pointCloudPath)) {
+                std::cout << "[INFO] Point cloud saved to: " << pointCloudPath << std::endl;
+            } else {
+                std::cerr << "Error: Failed to save point cloud" << std::endl;
+                return false;
+            }
+        } else {
+            std::cerr << "Error: Point cloud is empty" << std::endl;
+            return false;
+        }
+    }
     // Poisson重建参数设置和多模式重建全部迁移到Config，由Config管理和调用
     MeshReconstruction::Mesh mesh = Config::generatePoissonMeshes(depthMap, rectL_color_filtered, K);
     

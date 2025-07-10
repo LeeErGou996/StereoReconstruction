@@ -22,14 +22,47 @@ Stereo rectification completed successfully
 Rectified color images saved
 
 5. Disparity computation...
+[ELAS] Loading parameters from config...
+[ELAS] Preset: CUSTOM
+[ELAS] Using CUSTOM configuration from config.txt
+[ELAS] Current parameters:
+  Disparity range: [0, 256]
+  Support threshold: 0.5
+  Support texture: 31
+  Candidate stepsize: 5
+  Incon window size: 5
+  Incon threshold: 5
+  Incon min support: 5
+  Add corners: false
+  Grid size: 20
+  Beta: 0.02
+  Gamma: 3
+  Sigma: 1
+  Sradius: 2
+  Match texture: 31
+  LR threshold: 5
+  Speckle sim threshold: 1
+  Speckle size: 100
+  Ipol gap width: 3
+  Filter median: false
+  Filter adaptive mean: true
+  Postprocess only left: true
+  Subsampling: false
+[ELAS] Parameters loaded successfully
+[ELAS] Processing images: 889x512
+[ELAS] Parameters converted to ELAS library format
+[ELAS] Starting ELAS processing...
+ERROR: Need at least 3 support points!
+[ELAS] Processing completed successfully
 Successfully saved disparity map and related outputs
 
 6. Depth map computation...
-[DEBUG] Disparity map info: rows=512, cols=889, type=3 (CV_16S=3, CV_32F=5)
+[DEBUG] Disparity map info: rows=512, cols=889, type=5 (CV_16S=3, CV_32F=5)
 [DEBUG] Q matrix info: rows=4, cols=4, type=6
-[DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
+[DEBUG] Disparity map is already CV_32F format
 [DEBUG] Valid disparity value range: [0, 0]
 [DEBUG] Number of valid disparity pixels: 0 / 455168
+[DEBUG] Used OpenCV reprojectImageTo3D
 [DEBUG] XYZ map info: rows=512, cols=889, type=21
 Warning: No valid depth value!
 Warning: No valid depth value, create empty depth map
@@ -38,18 +71,30 @@ Successfully saved depth maps
 7. Mesh reconstruction...
 [INFO] Mesh reconstruction parameters updated
 [INFO] Reconstruction mode: Point Cloud
-[INFO] Starting Poisson surface reconstruction...
-[INFO] Estimating normals from depth map...
-[DEBUG] Input depth map: 512x889, type=5
-[DEBUG] Processed depth map type: 5
-[DEBUG] Depth value range: [0, 0]
-[DEBUG] Depth threshold: 5000
-[DEBUG] Expected points: 17500 (step=5)
-[DEBUG] Processing statistics:
-  Total pixels processed: 17776
-  Valid depth pixels: 0
-  Valid neighbor pixels: 0
-[INFO] Estimated normals for 0 points
-Error: Not enough points with normals for Poisson reconstruction
-Error: Failed to generate Poisson mesh
+[INFO] Generating and saving point cloud...
+[INFO] Starting optimized point cloud generation...
+[INFO] Total iterations: 113792, Estimated points: 113792
+[PROGRESS] Point cloud generation: 4% (5689/113792)
+[PROGRESS] Point cloud generation: 9% (11378/113792)
+[PROGRESS] Point cloud generation: 14% (17067/113792)
+[PROGRESS] Point cloud generation: 19% (22756/113792)
+[PROGRESS] Point cloud generation: 24% (28445/113792)
+[PROGRESS] Point cloud generation: 29% (34134/113792)
+[PROGRESS] Point cloud generation: 34% (39823/113792)
+[PROGRESS] Point cloud generation: 39% (45512/113792)
+[PROGRESS] Point cloud generation: 44% (51201/113792)
+[PROGRESS] Point cloud generation: 49% (56890/113792)
+[PROGRESS] Point cloud generation: 54% (62579/113792)
+[PROGRESS] Point cloud generation: 59% (68268/113792)
+[PROGRESS] Point cloud generation: 64% (73957/113792)
+[PROGRESS] Point cloud generation: 69% (79646/113792)
+[PROGRESS] Point cloud generation: 74% (85335/113792)
+[PROGRESS] Point cloud generation: 79% (91024/113792)
+[PROGRESS] Point cloud generation: 84% (96713/113792)
+[PROGRESS] Point cloud generation: 89% (102402/113792)
+[PROGRESS] Point cloud generation: 94% (108091/113792)
+[PROGRESS] Point cloud generation: 99% (113780/113792)
+[PROGRESS] Point cloud generation: 100% (113792/113792)
+[INFO] Generated 0 points for point cloud
+Error: Point cloud is empty
 [INFO] DisparityProcessor destroyed

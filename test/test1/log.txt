@@ -21,52 +21,111 @@ Stereo rectification completed successfully
 Rectified color images saved
 
 5. Disparity computation...
+[ELAS] Loading parameters from config...
+[ELAS] Preset: CUSTOM
+[ELAS] Using CUSTOM configuration from config.txt
+[ELAS] Current parameters:
+  Disparity range: [0, 256]
+  Support threshold: 0.5
+  Support texture: 31
+  Candidate stepsize: 5
+  Incon window size: 5
+  Incon threshold: 5
+  Incon min support: 5
+  Add corners: false
+  Grid size: 20
+  Beta: 0.02
+  Gamma: 3
+  Sigma: 1
+  Sradius: 2
+  Match texture: 31
+  LR threshold: 5
+  Speckle sim threshold: 1
+  Speckle size: 100
+  Ipol gap width: 3
+  Filter median: false
+  Filter adaptive mean: true
+  Postprocess only left: true
+  Subsampling: false
+[ELAS] Parameters loaded successfully
+[ELAS] Processing images: 1920x1080
+[ELAS] Parameters converted to ELAS library format
+[ELAS] Starting ELAS processing...
+[ELAS] Processing completed successfully
 Successfully saved disparity map and related outputs
 
 6. Depth map computation...
-[DEBUG] Disparity map info: rows=1080, cols=1920, type=3 (CV_16S=3, CV_32F=5)
+[DEBUG] Disparity map info: rows=1080, cols=1920, type=5 (CV_16S=3, CV_32F=5)
 [DEBUG] Q matrix info: rows=4, cols=4, type=6
-[DEBUG] Converted CV_16S disparity to CV_32F, scale: 1/16
-[DEBUG] Valid disparity value range: [1, 135.75]
-[DEBUG] Number of valid disparity pixels: 487990 / 2073600
+[DEBUG] Disparity map is already CV_32F format
+[DEBUG] Valid disparity value range: [52.275, 134.982]
+[DEBUG] Number of valid disparity pixels: 541010 / 2073600
+[DEBUG] Used OpenCV reprojectImageTo3D
 [DEBUG] XYZ map info: rows=1080, cols=1920, type=21
-[DEBUG] Valid depth range: [12.7716, 866.87] unit
-[DEBUG] Number of valid depth pixels: 487220
+[DEBUG] Valid depth range: [12.8442, 33.1134] unit
+[DEBUG] Number of valid depth pixels: 541009
 [DEBUG] Center depth: 0
-[DEBUG] Use 98th percentile normalization: [12.7716, 31.4154]
+[DEBUG] Use 98th percentile normalization: [12.8442, 30.9079]
 Successfully saved depth maps
 
 7. Mesh reconstruction...
 [INFO] Mesh reconstruction parameters updated
 [INFO] Reconstruction mode: Point Cloud
+[INFO] Generating and saving point cloud...
+[INFO] Starting optimized point cloud generation...
+[INFO] Total iterations: 518400, Estimated points: 518400
+[PROGRESS] Point cloud generation: 5% (25920/518400)
+[PROGRESS] Point cloud generation: 10% (51840/518400)
+[PROGRESS] Point cloud generation: 15% (77760/518400)
+[PROGRESS] Point cloud generation: 20% (103680/518400)
+[PROGRESS] Point cloud generation: 25% (129600/518400)
+[PROGRESS] Point cloud generation: 30% (155520/518400)
+[PROGRESS] Point cloud generation: 35% (181440/518400)
+[PROGRESS] Point cloud generation: 40% (207360/518400)
+[PROGRESS] Point cloud generation: 45% (233280/518400)
+[PROGRESS] Point cloud generation: 50% (259200/518400)
+[PROGRESS] Point cloud generation: 55% (285120/518400)
+[PROGRESS] Point cloud generation: 60% (311040/518400)
+[PROGRESS] Point cloud generation: 65% (336960/518400)
+[PROGRESS] Point cloud generation: 70% (362880/518400)
+[PROGRESS] Point cloud generation: 75% (388800/518400)
+[PROGRESS] Point cloud generation: 80% (414720/518400)
+[PROGRESS] Point cloud generation: 85% (440640/518400)
+[PROGRESS] Point cloud generation: 90% (466560/518400)
+[PROGRESS] Point cloud generation: 95% (492480/518400)
+[PROGRESS] Point cloud generation: 100% (518400/518400)
+[PROGRESS] Point cloud generation: 100% (518400/518400)
+[INFO] Generated 135246 points for point cloud
+[INFO] Successfully saved 135246 points to ../test//test1/pointcloud.ply
+[INFO] Point cloud saved to: ../test//test1/pointcloud.ply
 [INFO] Starting Poisson surface reconstruction...
 [INFO] Estimating normals from depth map...
 [DEBUG] Input depth map: 1080x1920, type=5
 [DEBUG] Processed depth map type: 5
-[DEBUG] Depth value range: [0, 866.87]
+[DEBUG] Depth value range: [0, 33.1134]
 [DEBUG] Depth threshold: 5000
-[DEBUG] Expected points: 81748 (step=5)
+[DEBUG] Expected points: 515404 (step=2)
 [DEBUG] Processing statistics:
-  Total pixels processed: 81748
-  Valid depth pixels: 19472
-  Valid neighbor pixels: 9025
-[INFO] Estimated normals for 8998 points
+  Total pixels processed: 515404
+  Valid depth pixels: 135246
+  Valid neighbor pixels: 103399
+[INFO] Estimated normals for 103176 points
 [INFO] Refining normals using 3D neighborhood analysis...
-[INFO] Estimating normals using optimized PCA (k=15)...
-[INFO] Estimated normals for 8998 points
+[INFO] Estimating normals using optimized PCA (k=10)...
+[INFO] Estimated normals for 103176 points
 [INFO] Normal refinement completed
-[INFO] Using 8998 points for reconstruction
+[INFO] Using 103176 points for reconstruction
 [INFO] Using PCL Poisson surface reconstruction...
 [INFO] PCL Poisson parameters:
-  Depth: 12
-  Solver divide: 8
+  Depth: 13
+  Solver divide: 14
   Samples per node: 3
 [INFO] PCL Poisson reconstruction completed
-[INFO] Generated mesh with 21320 vertices and 42434 faces
+[INFO] Generated mesh with 180271 vertices and 360234 faces
 [INFO] Saving mesh to: ../test//test1_poisson_mesh.ply
 [INFO] Format: ply
-[INFO] Vertices: 21320, Faces: 42434
-[INFO] Successfully saved mesh with 21320 vertices and 42434 faces to ../test//test1_poisson_mesh.ply
+[INFO] Vertices: 180271, Faces: 360234
+[INFO] Successfully saved mesh with 180271 vertices and 360234 faces to ../test//test1_poisson_mesh.ply
 [INFO] Poisson mesh saved to: ../test//test1_poisson_mesh.ply
 Successfully completed 3D reconstruction
 

@@ -2,6 +2,7 @@
 #define DENSE_MATCHING_H
 
 #include <opencv2/opencv.hpp>
+#include "elasMatcher.h"
 
 class DenseMatcher {
 public:

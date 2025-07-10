@@ -311,7 +311,7 @@ std::vector<PointWithNormal> estimateNormalsFromDepth(const cv::Mat& depthMap, c
             }
             
             // Ensure normal points towards camera
-            if (normal.z < 0) {
+            if (normal.z > 0) {
                 normal.x = -normal.x;
                 normal.y = -normal.y;
                 normal.z = -normal.z;
@@ -448,7 +448,7 @@ std::vector<PointWithNormal> estimateNormals(const std::vector<Point3D>& points,
         normal.normalize();
         
         // 确保法向量朝向观察者
-        if (normal.nz < 0) {
+        if (normal.nz > 0) {
             normal.nx = -normal.nx;
             normal.ny = -normal.ny;
             normal.nz = -normal.nz;

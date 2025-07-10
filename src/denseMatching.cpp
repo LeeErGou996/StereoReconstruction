@@ -35,49 +35,41 @@ bool DenseMatcher::rectifyImages(const cv::Mat& imgL, const cv::Mat& imgR,
 
 bool DenseMatcher::computeDisparityMap(const cv::Mat& rectL, const cv::Mat& rectR,
                                         cv::Mat& disparity) {
-    // --- StereoSGBM 小P1/P2参数测试 ---
-    // Create stereo matcher
-    cv::Ptr<cv::StereoSGBM> stereoSGBM = cv::StereoSGBM::create();
-    
-    // Set basic parameters
-    stereoSGBM->setBlockSize(blockSize_);
-    stereoSGBM->setMinDisparity(0);
-    stereoSGBM->setNumDisparities(numDisparities_);
-    
-    // 参数全部从Config读取
     const auto& cfg = Config::instance();
-    stereoSGBM->setP1(cfg.sgbmP1 * rectL.channels());
-    stereoSGBM->setP2(cfg.sgbmP2 * rectL.channels());
-    stereoSGBM->setPreFilterCap(cfg.preFilterCap);
-    stereoSGBM->setUniquenessRatio(cfg.uniquenessRatio);
-    stereoSGBM->setSpeckleWindowSize(cfg.speckleWindowSize);
-    stereoSGBM->setSpeckleRange(cfg.speckleRange);
-    stereoSGBM->setDisp12MaxDiff(cfg.disp12MaxDiff);
-    
-    // BM等效模式
-    stereoSGBM->setMode(cv::StereoSGBM::MODE_SGBM);
-    
-    // Compute disparity map
-    stereoSGBM->compute(rectL, rectR, disparity);
-    
-    // --- StereoBM 旧实现（已注释，仅供参考）---
-    /*
-    // Create stereo matcher
-    cv::Ptr<cv::StereoBM> stereoBM = cv::StereoBM::create(numDisparities_, blockSize_);
-    // Set parameters
-    stereoBM->setPreFilterCap(31);
-    stereoBM->setBlockSize(blockSize_);
-    stereoBM->setMinDisparity(0);
-    stereoBM->setNumDisparities(numDisparities_);
-    stereoBM->setTextureThreshold(10);
-    stereoBM->setUniquenessRatio(15);
-    stereoBM->setSpeckleWindowSize(100);
-    stereoBM->setSpeckleRange(32);
-    stereoBM->setDisp12MaxDiff(1);
-    // Compute disparity map
-    stereoBM->compute(rectL, rectR, disparity);
-    */
-
+    if (cfg.denseMethod == "BM") {
+        cv::Ptr<cv::StereoBM> stereoBM = cv::StereoBM::create(numDisparities_, blockSize_);
+        stereoBM->setPreFilterCap(cfg.preFilterCap);
+        stereoBM->setBlockSize(blockSize_);
+        stereoBM->setMinDisparity(0);
+        stereoBM->setNumDisparities(numDisparities_);
+        #ifdef HAS_TEXTURE_THRESHOLD
+        stereoBM->setTextureThreshold(cfg.textureThreshold);
+        #else
+        stereoBM->setTextureThreshold(10);
+        #endif
+        stereoBM->setUniquenessRatio(cfg.uniquenessRatio);
+        stereoBM->setSpeckleWindowSize(cfg.speckleWindowSize);
+        stereoBM->setSpeckleRange(cfg.speckleRange);
+        stereoBM->setDisp12MaxDiff(cfg.disp12MaxDiff);
+        stereoBM->compute(rectL, rectR, disparity);
+    } else if (cfg.denseMethod == "ELAS") {
+        ElasMatcher elasMatcher;
+        elasMatcher.computeDisparity(rectL, rectR, disparity);
+    } else { // 默认SGBM
+        cv::Ptr<cv::StereoSGBM> stereoSGBM = cv::StereoSGBM::create();
+        stereoSGBM->setBlockSize(blockSize_);
+        stereoSGBM->setMinDisparity(0);
+        stereoSGBM->setNumDisparities(numDisparities_);
+        stereoSGBM->setP1(cfg.sgbmP1 * rectL.channels());
+        stereoSGBM->setP2(cfg.sgbmP2 * rectL.channels());
+        stereoSGBM->setPreFilterCap(cfg.preFilterCap);
+        stereoSGBM->setUniquenessRatio(cfg.uniquenessRatio);
+        stereoSGBM->setSpeckleWindowSize(cfg.speckleWindowSize);
+        stereoSGBM->setSpeckleRange(cfg.speckleRange);
+        stereoSGBM->setDisp12MaxDiff(cfg.disp12MaxDiff);
+        stereoSGBM->setMode(cv::StereoSGBM::MODE_SGBM);
+        stereoSGBM->compute(rectL, rectR, disparity);
+    }
     return !disparity.empty();
 }
 

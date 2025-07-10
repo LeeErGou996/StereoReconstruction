@@ -33,9 +33,9 @@ distCoeffs=0,0,0,0,0
 # meshFormat: 网格保存格式（ply/obj等）
 meshFormat=ply
 # triangulationStep: 三角化步长，越大点云稀疏，越小更密集但慢。推荐2~10。
-triangulationStep=5
+triangulationStep=2
 # maxDepthDifference: 三角化时允许的最大深度差，防止跨越大深度跳变。推荐50~200。
-maxDepthDifference=100.0
+maxDepthDifference=20.0
 # useColor: 网格是否带颜色（1=带色，0=无色）
 useColor=1
 # depthThreshold: 参与重建的最大深度阈值，过滤远处噪声点。单位与深度一致，推荐1000~10000。
@@ -56,7 +56,10 @@ speckleWindowSize=100
 speckleRange=8
 # disp12MaxDiff: 左右一致性最大容差，推荐1-10。变大可保留更多视差但误差增多，变小则更严格但无效区域增多。
 disp12MaxDiff=5
-
+# denseMethod: 选择稠密匹配方法，支持 SGBM、BM 或 ELAS（区分大小写）。
+denseMethod=ELAS
+# depthMethod: 选择深度计算方法，支持 OpenCV 或 Custom（区分大小写）。
+depthMethod=OpenCV
 
 # ========== Poisson重建高级参数 ==========
 # poissonDepth: 八叉树深度，越大mesh越精细，推荐8~12，默认8
@@ -83,4 +86,52 @@ poissonOutputPolygons=false
 # 越大法线更平滑，越小更敏感
 
 depthDiffThreshold=0.1
-normalNeighbors=10 
+normalNeighbors=10
+
+# ========== 8点法算法选择 ==========
+# eightPointMethod: 选择8点法实现，支持 opencv（默认）, hartley, classic
+# opencv: OpenCV自带RANSAC实现
+# hartley: 带Hartley归一化的8点法
+# classic: 经典8点法（无Hartley归一化）
+eightPointMethod=hartley
+
+# ========== ELAS算法参数 ==========
+# elasPreset: ELAS预设配置，可选ROBOTICS/MIDDLEBURY/CUSTOM
+elasPreset=CUSTOM
+# ELAS视差范围参数
+elasDispMin=0
+elasDispMax=256
+# ELAS支持点检测参数
+elasSupportThreshold=0.5  # 对应SGBM的uniquenessRatio=50 (50/100)
+elasSupportTexture=31      # 对应SGBM的preFilterCap=31
+elasCandidateStepsize=5
+elasAddCorners=false
+# ELAS一致性检查参数
+elasInconWindowSize=5
+elasInconThreshold=5
+elasInconMinSupport=5
+# ELAS网格和插值参数
+elasGridSize=20
+elasIpolGapWidth=3
+# ELAS概率模型参数
+elasBeta=0.02
+elasGamma=3.0
+elasSigma=1.0
+elasSradius=2.0
+# ELAS匹配参数
+elasMatchTexture=31        # 对应SGBM的preFilterCap=31
+elasLrThreshold=5          # 对应SGBM的disp12MaxDiff=5
+# ELAS后处理参数
+elasSpeckleSimThreshold=1.0
+elasSpeckleSize=100        # 对应SGBM的speckleWindowSize=100
+elasFilterMedian=false
+elasFilterAdaptiveMean=true
+elasPostprocessOnlyLeft=true
+# ELAS性能参数
+elasSubsampling=false
+
+# ========== 特征匹配和位姿估计参数 ==========
+# featureType: 特征检测器类型，可选ORB/SIFT/SURF（兼容denseCompar配置，等价于algorithm）
+featureType=SIFT
+# use8pointAlgorithm: 是否使用8point算法估计R和t参数，true=使用，false=使用硬编码默认值（兼容denseCompar配置，等价于eightPointMethod=opencv时为true）
+use8pointAlgorithm=true 

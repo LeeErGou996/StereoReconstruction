@@ -7,7 +7,8 @@ namespace Depth {
 bool computeDepthMap(const cv::Mat& disparity,
                      const cv::Mat& Q,
                      cv::Mat& depthMap,
-                     const std::string& outputPath);
+                     const std::string& outputPath,
+                     bool useCustom = false);
 } // namespace Depth
 
 #endif // DEPTH_H 
