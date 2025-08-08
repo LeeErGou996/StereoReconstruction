@@ -1,0 +1,15 @@
+=== BAD2.0 Metric Results for Dataset: rectified_left ===
+Generated on: Sun Aug  3 23:10:41 2025
+Format: filename | BAD2.0 (%)
+===============================================
+disparity_ELAS_left_camera_file_no_fill.png | 99.44%
+disparity_ELAS_left_camera_file_sgm_fill.png | 98.05%
+disparity_ELAS_left_original_no_fill.png | 98.63%
+disparity_ELAS_left_original_sgm_fill.png | 98.44%
+disparity_ELAS_right_camera_file_no_fill.png | 99.72%
+disparity_ELAS_right_camera_file_sgm_fill.png | 97.61%
+disparity_ELAS_right_original_no_fill.png | 98.58%
+disparity_ELAS_right_original_sgm_fill.png | 98.74%
+===============================================
+Average BAD2.0: 98.65%
+Total files processed: 8

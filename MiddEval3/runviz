@@ -1,0 +1,53 @@
+#!/bin/csh -f
+
+if ($#argv < 1) then
+  echo "usage: ./runviz <res>"
+  exit 1
+endif
+
+set res = $1
+set p = $0:h
+if ($p == $0) set p = .
+set vizprog = $p/code/pfm2png
+
+if (! -x $vizprog) then
+  echo "executable $vizprog not found"
+  exit 1
+endif
+
+# 简单的参数设定
+switch ($res)
+  case 'F':
+    set dyr = 6
+    breaksw
+  case 'H':
+    set dyr = 3
+    breaksw
+  case 'Q':
+    set dyr = 2
+    breaksw
+  default:
+    echo "unknown resolution $res"
+    exit 1
+endsw
+
+# 直接处理文件，不做复杂的时间比较
+foreach d (training$res/*)
+  if (-d $d) then
+    echo "Processing directory: $d"
+    foreach src ($d/disp*.pfm)
+      if (-f $src) then
+        set dst = $src:r-c.png
+        echo "  $src -> $dst"
+        
+        if ($src:t == disp0GTy.pfm || $src:t == disp1GTy.pfm) then
+          $vizprog -m -$dyr -d $dyr $src $dst
+        else
+          $vizprog -c $d/calib.txt $src $dst
+        endif
+      endif
+    end
+  endif
+end
+
+echo "Done!"

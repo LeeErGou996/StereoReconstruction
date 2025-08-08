@@ -1,180 +1,108 @@
-# Stereo Vision, Depth, and Mesh Reconstruction Project
+# MysterroReconstr - 3D Reconstruction Project
 
-This project implements a complete stereo vision pipeline using OpenCV, supporting color image processing, disparity and depth map computation, point cloud generation, and 3D mesh reconstruction with color. It is designed for research and engineering applications in 3D vision, robotics, and photogrammetry.
+## Usage
 
-## Quick Start with Docker
-
-You can use the pre-built Docker image to run this project without manual environment setup:
+### Quick Start Example
+Workflow from stereo matching to point cloud generation:
 
 ```bash
-# Pull the image
-docker pull leeergou/3dsmc-with-project:latest
+cd build
+./testdisparityELAS test8                    # Generate disparity map using ELAS
+./testdepth test8                            # Compute depth from disparity
+./testpointcloud test8 left normal ../output/test8/disparity_ELAS_left_original_no_fill.png  # Generate point cloud
 
-# Run the container (with code-server, port 8443)
-docker run -it -p 8443:8443 leeergou/3dsmc-with-project:latest
+./testpointcloud test8 right normal ../output/test8/disparity_ELAS_right_original_no_fill.png  # Generate point cloud 
+
+./testpointcloud test8 left normal ../output/test8/disparity_ELAS_left_original_no_fill.png  # Generate point cloud 
 ```
 
-Then open your browser and visit `http://localhost:8443` to access the code-server environment with all project files and dependencies ready.
+### 1. Build Project
+First, use `install_and_build.sh` to build the project:
 
----
-
-## Features
-
-- **Flexible Image Input**: Supports both grayscale and color stereo images.
-- **Feature Detection & Matching**: SIFT, SURF, ORB feature extraction and robust matching.
-- **Relative Pose Estimation**: 8-point algorithm for essential matrix and camera pose.
-- **Stereo Rectification**: Aligns epipolar lines for accurate disparity computation.
-- **Dense Disparity Map**: Computes dense disparity using StereoBM/StereoSGBM.
-- **Depth Map Calculation**: Converts disparity to metric depth using camera parameters.
-- **Color Fusion**: Generates colorized disparity/depth maps and blended visualizations.
-- **Point Cloud Generation**: Reprojects depth to 3D colored point clouds.
-- **Mesh Reconstruction**: Exports 3D mesh/point cloud in PLY format, with color.
-- **Comprehensive Output**: Saves all intermediate and final results for analysis and visualization.
-- **Algorithm Comparison System** (DenseCompar): Multi-algorithm stereo matching comparison (SGBM, BM, ELAS) with 8-point pose estimation and innovative visual quality evaluation.
-- **Visual Quality Assessment**: Novel color disparity quality metrics for algorithm evaluation and optimization.
-- **Hot-Reloadable Configuration**: Runtime parameter tuning without recompilation for rapid experimentation.
-
-## Directory Structure
-
-```
-workspace/rootba/
-├── CMakeLists.txt         # Project build configuration
-├── README.md              # Project documentation (this file)
-├── data/                  # Example input images (left.png, right.png)
-├── include/               # (Optional) Extra headers
-│   └── stereo_reconstruction.hpp
-├── lib/                   # External libraries (OpenCV, etc.)
-│   ├── opencv/
-│   └── opencv_contrib/
-├── src/                   # Source code
-│   ├── main.cpp                 # Main pipeline entry
-│   ├── disparity.h/.cpp         # Disparity computation & feature matching
-│   ├── depth.h/.cpp             # Depth map computation
-│   ├── meshReconstruction.h/.cpp# Point cloud & mesh export
-│   ├── denseMatching.h/.cpp     # Dense stereo rectification & matching
-│   ├── 8point.h/.cpp            # 8-point pose estimation
-│   ├── colorUtils.cpp           # Color fusion utilities
-│   └── CMakeLists.txt           # Source build config
-├── denseCompar/           # Stereo algorithm comparison system (7.5 update)
-│   ├── main.cpp                 # Multi-algorithm comparison pipeline
-│   ├── color_disparity_quality_metrics.h/.cpp # Visual quality evaluation
-│   ├── config.h/.cpp            # Configuration management
-│   ├── bmMatcher.h/.cpp, sgbmMatcher.h/.cpp, elasMatcher.h/.cpp # Dense matching algorithms
-│   ├── 8point.h/.cpp, sparseMatching.h/.cpp                    # Sparse matching & pose estimation
-│   ├── data/, output/           # Input/output directories
-│   └── README.md                # DenseCompar documentation
-├── test/                  # Output results (auto-generated)
-│   ├── disparity.png, disparity_color_jet.png, ...
-│   ├── depth.png, depth_color.png, depth_raw.exr
-│   ├── reconstructed_mesh.ply, reconstructed_mesh_simplified.ply
-│   └── ...
+```bash
+chmod +x install_and_build.sh
+./install_and_build.sh
 ```
 
-## Build Instructions
+### 2. Run Test Programs
+Enter the build folder to test programs starting with "test":
 
-### Prerequisites
-- CMake >= 3.10
-- GCC/G++
-- OpenCV 4.7.0 (with contrib modules)
-- Git
+```bash
+cd build
+```
 
-### Steps
-1. **Clone OpenCV and Contrib**
-   ```bash
-   cd workspace/rootba/lib/
-   git clone https://github.com/opencv/opencv.git -b 4.7.0
-   git clone https://github.com/opencv/opencv_contrib.git -b 4.7.0
-   ```
-2. **Configure and Build**
-   ```bash
-   cd workspace/rootba
-   mkdir build && cd build
-   cmake ..
-   make
-   ```
-3. **Run the Pipeline**
-   ```bash
-   ./main
-   ```
-   The program will process `data/left.png` and `data/right.png` and output results to the `test/` directory.
+Available test programs:
+- `./testimage` - Image processing test
+- `./testfeature_matching` - Feature matching test
+- `./test8point` - 8-point algorithm test
+- `./testRectification` - Image rectification test
+- `./testdisparity` - Stereo matching test
+- `./testdisparityELAS` - ELAS stereo matching test
+- `./testdisparitySGM` - SGM stereo matching test
+- `./testdisparityADCE` - AD-Census stereo matching test
+- `./testdisparityBM` - BM stereo matching test
+- `./testdepth` - Depth computation test
+- `./testRectificationVis` - Rectification visualization test
+- `./testpointcloud` - Point cloud generation test
+- `./testicp` - ICP registration test
+- `./testicp_plane` - Point-to-plane ICP test
+- `./testtripletshow` - Triplet view display test
 
-4. **Run DenseCompar Algorithm Comparison** (Optional)
-   ```bash
-   cd denseCompar
-   mkdir build && cd build
-   cmake ..
-   make
-   ./denseCompar
-   ```
-   This will compare multiple stereo algorithms (SGBM, BM, ELAS) with 8-point pose estimation and generate quality reports.
+### 3. Output Results
+All results are saved in the `output` folder.
 
-## Output Files (in `test/`)
-- `left_original.png`, `right_original.png`: Original color images
-- `left_rectified.png`, `right_rectified.png`: Rectified color images
-- `feature_matches_color.png`: Visualized feature matches
-- `disparity.png`: Grayscale disparity map
-- `disparity_color_jet.png`, `disparity_color_hot.png`: Colorized disparity maps
-- `disparity_blended.png`, `disparity_blended_strong.png`: Blended color/disparity overlays
-- `depth.png`: Normalized depth map
-- `depth_color.png`: Colorized depth map
-- `depth_raw.exr`: Raw float depth map
-- `reconstructed_mesh.ply`: 3D colored point cloud/mesh (PLY)
-- `reconstructed_mesh_simplified.ply`: Downsampled mesh/point cloud
+## Source Code
+Original code is saved in the `src` directory.
 
-## Source Code Overview
-- **main.cpp**: Orchestrates the full pipeline: image loading, feature matching, rectification, disparity/depth/mesh computation, and result saving.
-- **disparity.cpp/h**: Feature detection, matching, pose estimation, and dense disparity computation.
-- **depth.cpp/h**: Converts disparity to depth, handles normalization and quality evaluation.
-- **meshReconstruction.cpp/h**: Generates colored point clouds and exports PLY mesh files.
-- **denseMatching.cpp/h**: Handles dense stereo rectification and matching.
-- **8point.cpp/h**: Implements the 8-point algorithm for pose estimation.
-- **colorUtils.cpp**: Utility functions for colorizing and blending images.
+## Function Modules
+Includes the following functions:
+- feature_matching - Feature matching
+- 8point - 8-point algorithm
+- disparityELAS - ELAS stereo matching
+- BM - Block matching algorithm
+- SGM - Semi-global matching
+- ADCE - AD-Census algorithm
+- pointcloud - Point cloud processing
+- depth - Depth map
 
-## Customization & Tips
-- Change input/output paths and algorithm options in `src/main.cpp`.
-- Adjust stereo/feature parameters for your dataset.
-- The code is modular and can be extended for new algorithms or output formats.
+## MiddEval3 Program Execution
 
-## License
-This project is for academic and research use. Please cite appropriately if used in publications.
+download testQ and traningQ from this link:
+https://vision.middlebury.edu/stereo/submit3/zip/MiddEval3-data-Q.zip
 
----
+### Generate Disparity Maps
+Use the `runalg` command to generate disparity maps for the training set:
 
-## Update Log
+```bash
+cd MiddEval3
+./runalg Q training ADCE    # Use ADCE algorithm
+./runalg Q training SGM     # Use SGM algorithm
+./runalg Q training ELAS    # Use ELAS algorithm
+./runalg Q training BM      # Use BM algorithm
+```
 
-### 7.5 ergou update - DenseCompar Algorithm Comparison System
-- **Multi-Algorithm Stereo Comparison**: Created `denseCompar/` module supporting SGBM, BM, and ELAS algorithms with full parameter control and 8-point pose estimation
-- **Innovative Visual Quality Evaluation**: Implemented novel color disparity quality metrics (contrast, sharpness, smoothness, etc.) with weighted scoring system
-- **Hot-Reloadable Configuration**: All parameters configurable via `config.txt` without recompilation
-- **Comprehensive Analysis**: Multiple output formats, traditional error metrics, and visual quality assessment
-- **Code Quality**: Cleaned deprecated code, fixed compilation issues, and improved documentation
+### Evaluate Algorithm Performance
+Use the `runeval` command to calculate bad2.0 metrics:
 
-The DenseCompar system provides both traditional error-based metrics and innovative visual quality assessment for comprehensive stereo algorithm comparison and optimization.
+```bash
+# Evaluate a single algorithm
+./runeval Q training 2 ADCE    # Evaluate bad2.0 metrics for ADCE algorithm
 
-### 7.2 ergou update
-- **Implemented Delaunay Triangulation and Poisson Surface Reconstruction**:
-  - Added Delaunay triangulation algorithm for mesh generation from point clouds
-  - Integrated PCL (Point Cloud Library) for true Poisson surface reconstruction
-  - Implemented flexible output modes: point cloud, triangulated mesh, or Poisson reconstructed mesh
-  - Added user-selectable reconstruction mode parameter for different output types
-  - Enhanced mesh quality with proper surface reconstruction algorithms
-- **Parameter Control Refactor and Optimization**:
-  - Completely refactored the parameter management system: all algorithm and reconstruction parameters are now loaded from `config.txt` at runtime.
-  - Parameters can be hot-modified in the config file without recompiling the code, enabling fast experimentation and tuning.
-  - All modules (dense matching, mesh, Poisson, etc.) now use config.txt for their settings.
-  - Initial parameter optimization experiments show that SIFT feature detection is more suitable than ORB for Poisson surface reconstruction, resulting in higher quality meshes.
+# Evaluate all algorithms
+./runeval Q training 2 MyELAS SGM ADCE BM
+```
 
-### 6.26 ergou update
-- **Updated README file**: Enhanced documentation with comprehensive project information and usage instructions
-- **Implemented new Docker deployment**: 
-  - Created Docker image with pre-configured environment
-  - Added code-server integration for web-based development
-  - Simplified setup process with one-command deployment
-- **Implemented new input and output save format**:
-  - Organized input images into separate left and right folders under data directory
-  - Created output subfolders named after input filenames for better organization
-  - Added batch processing capability for multiple image pairs
-  - Implemented comprehensive logging system with log.txt files in each output subfolder
-  - Enhanced file organization and result management
+### Visualize Results
+Use the `runviz` command to convert PFM format to PNG format:
 
+```bash
+./runviz Q    # Convert all PFM images to PNG format
+```
 
+### Parameter Description
+- `Q` - Quarter resolution
+- `H` - Half resolution  
+- `F` - Full resolution
+- `training` - Training dataset
+- `test` - Test dataset
+- `2` - bad2.0 threshold
