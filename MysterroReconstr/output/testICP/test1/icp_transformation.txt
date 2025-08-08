@@ -1,0 +1,18 @@
+ICP Transformation Results
+==========================
+
+Rotation Matrix R:
+1 8.23915e-06 1.2145e-05
+-8.23943e-06 1 2.29486e-05
+-1.21449e-05 -2.29487e-05 1
+
+Translation Vector t:
+-3.00349e-05 -5.02194e-06 -1.26873e-05
+
+Point Cloud Statistics:
+Source points (left): 91744
+Target points (right): 91736
+Aligned points (all): 91736
+Matched points only: 0
+Match percentage: 0%
+Unmatched points removed: 91736

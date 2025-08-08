@@ -1,0 +1,1 @@
+/usr/bin/c++  -fopenmp CMakeFiles/test8point.dir/test/test8point.cpp.o CMakeFiles/test8point.dir/src/utils/imageutils.cpp.o -o test8point  /usr/lib/x86_64-linux-gnu/libpng.so /usr/lib/x86_64-linux-gnu/libz.so 

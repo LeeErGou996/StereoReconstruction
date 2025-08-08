@@ -1,0 +1,1 @@
+/usr/bin/c++  -fopenmp CMakeFiles/testtripletshow.dir/test/testtripletshow.cpp.o CMakeFiles/testtripletshow.dir/src/utils/imageutils.cpp.o -o testtripletshow  /usr/lib/x86_64-linux-gnu/libpng.so /usr/lib/x86_64-linux-gnu/libz.so 

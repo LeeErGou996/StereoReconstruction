@@ -1,0 +1,1 @@
+/usr/bin/c++  -fopenmp CMakeFiles/testimage.dir/test/testimage.cpp.o CMakeFiles/testimage.dir/src/utils/imageutils.cpp.o -o testimage  /usr/lib/x86_64-linux-gnu/libpng.so /usr/lib/x86_64-linux-gnu/libz.so 

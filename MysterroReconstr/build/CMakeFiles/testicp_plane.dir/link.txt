@@ -1,0 +1,1 @@
+/usr/bin/c++  -fopenmp CMakeFiles/testicp_plane.dir/test/testicp.cpp.o CMakeFiles/testicp_plane.dir/src/icp_point2plane.cpp.o CMakeFiles/testicp_plane.dir/src/pointcloud.cpp.o CMakeFiles/testicp_plane.dir/src/utils/imageutils.cpp.o -o testicp_plane  /usr/lib/x86_64-linux-gnu/libpng.so /usr/lib/x86_64-linux-gnu/libz.so 

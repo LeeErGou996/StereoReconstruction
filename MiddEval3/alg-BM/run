@@ -1,0 +1,56 @@
+#!/bin/csh -f
+
+# runs BM algorithm for MiddEval3
+
+if ($#argv != 4) then
+  echo "usage: run <im0.png> <im1.png> <ndisp> <outdir>"
+  exit 1
+endif
+
+# 输入参数
+set im0 = $1
+set im1 = $2
+set ndisp = $3
+set outdir = $4
+
+# 获取可执行文件路径
+set p = $0:h
+if ($p == $0) set p = .
+set p = $p/build
+
+# 计算最大视差
+@ maxdisp = $ndisp - 1
+
+# 记录开始时间
+set start_time = `date +%s`
+
+# 运行BM算法
+echo "Running BM algorithm..."
+echo "Left image: $im0"
+echo "Right image: $im1"
+echo "Max disparity: $maxdisp"
+echo "Output directory: $outdir"
+
+# 创建输出目录
+mkdir -p $outdir
+
+# 使用png2pgm工具转换图像（与原始ELAS保持一致）
+set tmpim0 = tmp-im0.pgm
+set tmpim1 = tmp-im1.pgm
+
+# 转换PNG到PGM
+$p/../../code/png2pgm $im0 $tmpim0
+$p/../../code/png2pgm $im1 $tmpim1
+
+# 运行BM程序
+$p/bm $tmpim0 $tmpim1 $outdir/disp0.pfm $maxdisp
+
+# 清理临时文件
+rm -f $tmpim0 $tmpim1
+
+# 记录结束时间并计算运行时间
+set end_time = `date +%s`
+@ runtime = $end_time - $start_time
+echo $runtime > $outdir/time.txt
+
+echo "BM completed in ${runtime}s" 

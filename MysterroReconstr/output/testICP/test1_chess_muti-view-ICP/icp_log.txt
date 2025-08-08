@@ -1,0 +1,2150 @@
+=== ICP Iteration 0 ===
+Total residuals added: 266356
+Translation after optimization: 0.00708308, 9.21215e-05, -0.00336514
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        266356                   266356
+Residuals                              266356                   266356
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.237171e+02
+Final                            1.212889e+02
+Change                           2.428254e+00
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.108297
+
+  Residual only evaluation           0.083204 (2)
+  Jacobian & residual evaluation    14.581050 (2)
+  Linear solver                      0.066720 (2)
+Minimizer                           14.756475
+
+Postprocessor                        0.018436
+Total                               14.883208
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.927146e-07 <= 1.000000e-06)
+
+=== ICP Iteration 1 ===
+Total residuals added: 266360
+Translation after optimization: 0.00708589, -0.000234034, -0.00278548
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        266360                   266360
+Residuals                              266360                   266360
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.226738e+02
+Final                            1.224177e+02
+Change                           2.560235e-01
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.094521
+
+  Residual only evaluation           0.096471 (2)
+  Jacobian & residual evaluation    21.371343 (2)
+  Linear solver                      0.098356 (2)
+Minimizer                           21.598008
+
+Postprocessor                        0.017874
+Total                               21.710404
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 2.992896e-08 <= 1.000000e-06)
+
+=== ICP Iteration 2 ===
+Total residuals added: 266159
+Translation after optimization: 0.00682934, -0.00100631, -0.00227063
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        266159                   266159
+Residuals                              266159                   266159
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.243371e+02
+Final                            1.242458e+02
+Change                           9.122224e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.041006
+
+  Residual only evaluation           0.072302 (2)
+  Jacobian & residual evaluation    18.756901 (2)
+  Linear solver                      0.045849 (2)
+Minimizer                           18.889650
+
+Postprocessor                        0.008435
+Total                               18.939091
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 7.093976e-09 <= 1.000000e-06)
+
+=== ICP Iteration 3 ===
+Total residuals added: 265685
+Translation after optimization: 0.00683619, -0.00124112, -0.00218364
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        265685                   265685
+Residuals                              265685                   265685
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.243767e+02
+Final                            1.243696e+02
+Change                           7.093232e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.038548
+
+  Residual only evaluation           0.071842 (2)
+  Jacobian & residual evaluation    17.518589 (2)
+  Linear solver                      0.052145 (2)
+Minimizer                           17.658563
+
+Postprocessor                        0.011355
+Total                               17.708467
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 5.541839e-10 <= 1.000000e-06)
+
+=== ICP Iteration 4 ===
+Total residuals added: 264941
+Translation after optimization: 0.00673378, -0.00141563, -0.00217568
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        264941                   264941
+Residuals                              264941                   264941
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.244090e+02
+Final                            1.244020e+02
+Change                           6.955273e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.041661
+
+  Residual only evaluation           0.072807 (2)
+  Jacobian & residual evaluation    17.079968 (2)
+  Linear solver                      0.050152 (2)
+Minimizer                           17.218679
+
+Postprocessor                        0.010683
+Total                               17.271023
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 6.942267e-09 <= 1.000000e-06)
+
+=== ICP Iteration 5 ===
+Total residuals added: 264235
+Translation after optimization: 0.00759133, -0.0021845, -0.00195222
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        264235                   264235
+Residuals                              264235                   264235
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.249778e+02
+Final                            1.249524e+02
+Change                           2.542707e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.048930
+
+  Residual only evaluation           0.106051 (2)
+  Jacobian & residual evaluation    21.016628 (2)
+  Linear solver                      0.107310 (2)
+Minimizer                           21.261384
+
+Postprocessor                        0.012024
+Total                               21.322339
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.637457e-09 <= 1.000000e-06)
+
+=== ICP Iteration 6 ===
+Total residuals added: 263625
+Translation after optimization: 0.00712487, -0.00228232, -0.00189377
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        263625                   263625
+Residuals                              263625                   263625
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.260170e+02
+Final                            1.260102e+02
+Change                           6.872163e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.093478
+
+  Residual only evaluation           0.066900 (2)
+  Jacobian & residual evaluation    19.335562 (2)
+  Linear solver                      0.043727 (2)
+Minimizer                           19.463777
+
+Postprocessor                        0.008459
+Total                               19.565714
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 3.732832e-09 <= 1.000000e-06)
+
+=== ICP Iteration 7 ===
+Total residuals added: 263168
+Translation after optimization: 0.00655788, -0.00219855, -0.00183258
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        263168                   263168
+Residuals                              263168                   263168
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.267560e+02
+Final                            1.267502e+02
+Change                           5.751240e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.041081
+
+  Residual only evaluation           0.066965 (2)
+  Jacobian & residual evaluation    16.057074 (2)
+  Linear solver                      0.044818 (2)
+Minimizer                           16.182583
+
+Postprocessor                        0.009181
+Total                               16.232845
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 2.010199e-09 <= 1.000000e-06)
+
+=== ICP Iteration 8 ===
+Total residuals added: 262482
+Translation after optimization: 0.00591854, -0.00231197, -0.00177527
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        262482                   262482
+Residuals                              262482                   262482
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.261502e+02
+Final                            1.261366e+02
+Change                           1.359017e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.040117
+
+  Residual only evaluation           0.086757 (2)
+  Jacobian & residual evaluation    15.920355 (2)
+  Linear solver                      0.050930 (2)
+Minimizer                           16.073051
+
+Postprocessor                        0.010442
+Total                               16.123610
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 6.952746e-09 <= 1.000000e-06)
+
+=== ICP Iteration 9 ===
+Total residuals added: 261988
+Translation after optimization: 0.0056239, -0.00217428, -0.00193812
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        261988                   261988
+Residuals                              261988                   261988
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.262619e+02
+Final                            1.262558e+02
+Change                           6.076262e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.043046
+
+  Residual only evaluation           0.065037 (2)
+  Jacobian & residual evaluation    15.983540 (2)
+  Linear solver                      0.042399 (2)
+Minimizer                           16.105181
+
+Postprocessor                        0.008732
+Total                               16.156959
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 8.111708e-10 <= 1.000000e-06)
+
+=== ICP Iteration 10 ===
+Total residuals added: 261671
+Translation after optimization: 0.00494495, -0.00172612, -0.00216464
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        261671                   261671
+Residuals                              261671                   261671
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.264873e+02
+Final                            1.264686e+02
+Change                           1.873709e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.038419
+
+  Residual only evaluation           0.072255 (2)
+  Jacobian & residual evaluation    16.487778 (2)
+  Linear solver                      0.029589 (2)
+Minimizer                           16.602610
+
+Postprocessor                        0.009397
+Total                               16.650427
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 3.013372e-09 <= 1.000000e-06)
+
+=== ICP Iteration 11 ===
+Total residuals added: 260879
+Translation after optimization: 0.00478479, -0.00141347, -0.00230969
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        260879                   260879
+Residuals                              260879                   260879
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.271622e+02
+Final                            1.271522e+02
+Change                           9.953270e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.041217
+
+  Residual only evaluation           0.067894 (2)
+  Jacobian & residual evaluation    16.510284 (2)
+  Linear solver                      0.028065 (2)
+Minimizer                           16.618813
+
+Postprocessor                        0.008762
+Total                               16.668792
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 6.324189e-09 <= 1.000000e-06)
+
+=== ICP Iteration 12 ===
+Total residuals added: 259362
+Translation after optimization: 0.00500147, -0.00135902, -0.00216728
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        259362                   259362
+Residuals                              259362                   259362
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.267533e+02
+Final                            1.267496e+02
+Change                           3.669959e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.039485
+
+  Residual only evaluation           0.068415 (2)
+  Jacobian & residual evaluation    15.916879 (2)
+  Linear solver                      0.045575 (2)
+Minimizer                           16.046198
+
+Postprocessor                        0.009333
+Total                               16.095016
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 8.709169e-10 <= 1.000000e-06)
+
+=== ICP Iteration 13 ===
+Total residuals added: 258274
+Translation after optimization: 0.00519092, -0.00118143, -0.00185505
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        258274                   258274
+Residuals                              258274                   258274
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.267297e+02
+Final                            1.267150e+02
+Change                           1.473583e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.036865
+
+  Residual only evaluation           0.067785 (2)
+  Jacobian & residual evaluation    16.223949 (2)
+  Linear solver                      0.044518 (2)
+Minimizer                           16.351576
+
+Postprocessor                        0.008640
+Total                               16.397081
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 3.899136e-09 <= 1.000000e-06)
+
+=== ICP Iteration 14 ===
+Total residuals added: 256954
+Translation after optimization: 0.00494412, -0.00111831, -0.00173345
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        256954                   256954
+Residuals                              256954                   256954
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.261747e+02
+Final                            1.261687e+02
+Change                           6.039268e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.041117
+
+  Residual only evaluation           0.065275 (2)
+  Jacobian & residual evaluation    15.695696 (2)
+  Linear solver                      0.033429 (2)
+Minimizer                           15.806746
+
+Postprocessor                        0.008609
+Total                               15.856472
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 8.057003e-09 <= 1.000000e-06)
+
+=== ICP Iteration 15 ===
+Total residuals added: 255796
+Translation after optimization: 0.00464065, -0.000858013, -0.00172542
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        255796                   255796
+Residuals                              255796                   255796
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.251211e+02
+Final                            1.251101e+02
+Change                           1.100750e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.037709
+
+  Residual only evaluation           0.072108 (2)
+  Jacobian & residual evaluation    17.607869 (2)
+  Linear solver                      0.055832 (2)
+Minimizer                           17.748958
+
+Postprocessor                        0.016364
+Total                               17.803031
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 6.029023e-09 <= 1.000000e-06)
+
+=== ICP Iteration 16 ===
+Total residuals added: 254481
+Translation after optimization: 0.00428671, -0.000548478, -0.00179374
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        254481                   254481
+Residuals                              254481                   254481
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.238771e+02
+Final                            1.238617e+02
+Change                           1.541763e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.077736
+
+  Residual only evaluation           0.097748 (2)
+  Jacobian & residual evaluation    19.591230 (2)
+  Linear solver                      0.092203 (2)
+Minimizer                           19.804703
+
+Postprocessor                        0.019806
+Total                               19.902246
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 4.393852e-09 <= 1.000000e-06)
+
+=== ICP Iteration 17 ===
+Total residuals added: 253646
+Translation after optimization: 0.00398392, -0.000288665, -0.00165235
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        253646                   253646
+Residuals                              253646                   253646
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.235408e+02
+Final                            1.235350e+02
+Change                           5.787100e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.077631
+
+  Residual only evaluation           0.090464 (2)
+  Jacobian & residual evaluation    19.854927 (2)
+  Linear solver                      0.087108 (2)
+Minimizer                           20.069979
+
+Postprocessor                        0.016275
+Total                               20.163886
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.474027e-09 <= 1.000000e-06)
+
+=== ICP Iteration 18 ===
+Total residuals added: 252921
+Translation after optimization: 0.00402664, -4.95762e-05, -0.00159125
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        252921                   252921
+Residuals                              252921                   252921
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.231710e+02
+Final                            1.231665e+02
+Change                           4.486808e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.091350
+
+  Residual only evaluation           0.086803 (2)
+  Jacobian & residual evaluation    19.511189 (2)
+  Linear solver                      0.080319 (2)
+Minimizer                           19.701584
+
+Postprocessor                        0.011229
+Total                               19.804163
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.278150e-09 <= 1.000000e-06)
+
+=== ICP Iteration 19 ===
+Total residuals added: 252149
+Translation after optimization: 0.00430488, 0.000315618, -0.00136844
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        252149                   252149
+Residuals                              252149                   252149
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.222976e+02
+Final                            1.222838e+02
+Change                           1.375599e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.080788
+
+  Residual only evaluation           0.095309 (2)
+  Jacobian & residual evaluation    18.596631 (2)
+  Linear solver                      0.076845 (2)
+Minimizer                           18.798704
+
+Postprocessor                        0.020325
+Total                               18.899817
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 9.645363e-10 <= 1.000000e-06)
+
+=== ICP Iteration 20 ===
+Total residuals added: 250893
+Translation after optimization: 0.00450204, 0.000418215, -0.00125795
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        250893                   250893
+Residuals                              250893                   250893
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.206400e+02
+Final                            1.206365e+02
+Change                           3.513241e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.085120
+
+  Residual only evaluation           0.091669 (2)
+  Jacobian & residual evaluation    21.837888 (2)
+  Linear solver                      0.077473 (2)
+Minimizer                           22.032354
+
+Postprocessor                        0.015108
+Total                               22.132583
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 6.363060e-10 <= 1.000000e-06)
+
+=== ICP Iteration 21 ===
+Total residuals added: 249573
+Translation after optimization: 0.00418595, 0.000704151, -0.00121345
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        249573                   249573
+Residuals                              249573                   249573
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.182029e+02
+Final                            1.181985e+02
+Change                           4.432053e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.080396
+
+  Residual only evaluation           0.088275 (2)
+  Jacobian & residual evaluation    19.592800 (2)
+  Linear solver                      0.061336 (2)
+Minimizer                           19.766867
+
+Postprocessor                        0.012492
+Total                               19.859755
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.561859e-09 <= 1.000000e-06)
+
+=== ICP Iteration 22 ===
+Total residuals added: 248288
+Translation after optimization: 0.00395215, 0.000867877, -0.00134545
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        248288                   248288
+Residuals                              248288                   248288
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.158575e+02
+Final                            1.158534e+02
+Change                           4.100073e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.069091
+
+  Residual only evaluation           0.101089 (2)
+  Jacobian & residual evaluation    20.591244 (2)
+  Linear solver                      0.077855 (2)
+Minimizer                           20.791607
+
+Postprocessor                        0.013369
+Total                               20.874067
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 7.259351e-10 <= 1.000000e-06)
+
+=== ICP Iteration 23 ===
+Total residuals added: 247081
+Translation after optimization: 0.00399954, 0.00107712, -0.00132878
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        247081                   247081
+Residuals                              247081                   247081
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.138252e+02
+Final                            1.138230e+02
+Change                           2.203572e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.087582
+
+  Residual only evaluation           0.095394 (2)
+  Jacobian & residual evaluation    21.014623 (2)
+  Linear solver                      0.095959 (2)
+Minimizer                           21.233106
+
+Postprocessor                        0.017473
+Total                               21.338162
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.264257e-09 <= 1.000000e-06)
+
+=== ICP Iteration 24 ===
+Total residuals added: 245739
+Translation after optimization: 0.00365081, 0.00135689, -0.00149319
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        245739                   245739
+Residuals                              245739                   245739
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.115466e+02
+Final                            1.115388e+02
+Change                           7.758879e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.070338
+
+  Residual only evaluation           0.081652 (2)
+  Jacobian & residual evaluation    19.562907 (2)
+  Linear solver                      0.076637 (2)
+Minimizer                           19.746320
+
+Postprocessor                        0.015796
+Total                               19.832455
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 3.961216e-09 <= 1.000000e-06)
+
+=== ICP Iteration 25 ===
+Total residuals added: 244451
+Translation after optimization: 0.00288764, 0.0012715, -0.00188484
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        244451                   244451
+Residuals                              244451                   244451
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.096600e+02
+Final                            1.096388e+02
+Change                           2.118460e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.076191
+
+  Residual only evaluation           0.093042 (2)
+  Jacobian & residual evaluation    20.328499 (2)
+  Linear solver                      0.095610 (2)
+Minimizer                           20.538535
+
+Postprocessor                        0.013315
+Total                               20.628044
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.617688e-09 <= 1.000000e-06)
+
+=== ICP Iteration 26 ===
+Total residuals added: 243510
+Translation after optimization: 0.00227492, 0.00130164, -0.00191944
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        243510                   243510
+Residuals                              243510                   243510
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.092046e+02
+Final                            1.091980e+02
+Change                           6.635546e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.085302
+
+  Residual only evaluation           0.083266 (2)
+  Jacobian & residual evaluation    19.939695 (2)
+  Linear solver                      0.056416 (2)
+Minimizer                           20.102490
+
+Postprocessor                        0.012545
+Total                               20.200339
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.392146e-09 <= 1.000000e-06)
+
+=== ICP Iteration 27 ===
+Total residuals added: 242564
+Translation after optimization: 0.00224102, 0.0011809, -0.00194401
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        242564                   242564
+Residuals                              242564                   242564
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.086863e+02
+Final                            1.086835e+02
+Change                           2.780223e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.069190
+
+  Residual only evaluation           0.080383 (2)
+  Jacobian & residual evaluation    20.243298 (2)
+  Linear solver                      0.060837 (2)
+Minimizer                           20.406495
+
+Postprocessor                        0.013278
+Total                               20.488963
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 3.056437e-09 <= 1.000000e-06)
+
+=== ICP Iteration 28 ===
+Total residuals added: 241758
+Translation after optimization: 0.00200988, 0.00119437, -0.00184879
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        241758                   241758
+Residuals                              241758                   241758
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.085790e+02
+Final                            1.085771e+02
+Change                           1.906866e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.072856
+
+  Residual only evaluation           0.113123 (2)
+  Jacobian & residual evaluation    21.318363 (2)
+  Linear solver                      0.109616 (2)
+Minimizer                           21.575404
+
+Postprocessor                        0.015455
+Total                               21.663716
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 2.541079e-10 <= 1.000000e-06)
+
+=== ICP Iteration 29 ===
+Total residuals added: 240910
+Translation after optimization: 0.00167765, 0.0012151, -0.00170934
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        240910                   240910
+Residuals                              240910                   240910
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.081993e+02
+Final                            1.081937e+02
+Change                           5.624039e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.083514
+
+  Residual only evaluation           0.072935 (2)
+  Jacobian & residual evaluation    18.813736 (2)
+  Linear solver                      0.073128 (2)
+Minimizer                           18.987145
+
+Postprocessor                        0.018926
+Total                               19.089586
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 4.398875e-09 <= 1.000000e-06)
+
+=== ICP Iteration 30 ===
+Total residuals added: 240431
+Translation after optimization: 0.00150393, 0.00120293, -0.0017641
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        240431                   240431
+Residuals                              240431                   240431
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.082780e+02
+Final                            1.082743e+02
+Change                           3.744311e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.079535
+
+  Residual only evaluation           0.102384 (2)
+  Jacobian & residual evaluation    17.141987 (2)
+  Linear solver                      0.067019 (2)
+Minimizer                           17.336824
+
+Postprocessor                        0.019333
+Total                               17.435692
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 4.066018e-09 <= 1.000000e-06)
+
+=== ICP Iteration 31 ===
+Total residuals added: 239737
+Translation after optimization: 0.00117825, 0.00110521, -0.00170089
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        239737                   239737
+Residuals                              239737                   239737
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.076845e+02
+Final                            1.076805e+02
+Change                           4.044531e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.074899
+
+  Residual only evaluation           0.064549 (2)
+  Jacobian & residual evaluation    15.564297 (2)
+  Linear solver                      0.026554 (2)
+Minimizer                           15.672909
+
+Postprocessor                        0.008942
+Total                               15.756750
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 4.440594e-10 <= 1.000000e-06)
+
+=== ICP Iteration 32 ===
+Total residuals added: 239275
+Translation after optimization: 0.000784035, 0.00110699, -0.00155438
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        239275                   239275
+Residuals                              239275                   239275
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.071674e+02
+Final                            1.071638e+02
+Change                           3.585161e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.037097
+
+  Residual only evaluation           0.064664 (2)
+  Jacobian & residual evaluation    15.078900 (2)
+  Linear solver                      0.027807 (2)
+Minimizer                           15.185939
+
+Postprocessor                        0.008323
+Total                               15.231359
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.375873e-10 <= 1.000000e-06)
+
+=== ICP Iteration 33 ===
+Total residuals added: 239082
+Translation after optimization: 0.000721651, 0.000943635, -0.00151155
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        239082                   239082
+Residuals                              239082                   239082
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.072508e+02
+Final                            1.072492e+02
+Change                           1.610821e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.039458
+
+  Residual only evaluation           0.073066 (2)
+  Jacobian & residual evaluation    17.061129 (2)
+  Linear solver                      0.070567 (2)
+Minimizer                           17.231326
+
+Postprocessor                        0.019281
+Total                               17.290066
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 3.394732e-10 <= 1.000000e-06)
+
+=== ICP Iteration 34 ===
+Total residuals added: 238856
+Translation after optimization: 6.18442e-05, 0.00094145, -0.001566
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238856                   238856
+Residuals                              238856                   238856
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.069446e+02
+Final                            1.069385e+02
+Change                           6.078525e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.063351
+
+  Residual only evaluation           0.083481 (2)
+  Jacobian & residual evaluation    17.343734 (2)
+  Linear solver                      0.082956 (2)
+Minimizer                           17.529225
+
+Postprocessor                        0.019380
+Total                               17.611957
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.712201e-09 <= 1.000000e-06)
+
+=== ICP Iteration 35 ===
+Total residuals added: 238804
+Translation after optimization: -0.000247754, 0.000716704, -0.00142272
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238804                   238804
+Residuals                              238804                   238804
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.071357e+02
+Final                            1.071265e+02
+Change                           9.145614e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.067303
+
+  Residual only evaluation           0.069213 (2)
+  Jacobian & residual evaluation    17.463076 (2)
+  Linear solver                      0.065480 (2)
+Minimizer                           17.622148
+
+Postprocessor                        0.018425
+Total                               17.707878
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.815125e-09 <= 1.000000e-06)
+
+=== ICP Iteration 36 ===
+Total residuals added: 238764
+Translation after optimization: -0.000352828, 0.000684283, -0.00143039
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238764                   238764
+Residuals                              238764                   238764
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.070339e+02
+Final                            1.070332e+02
+Change                           7.401407e-04
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.092183
+
+  Residual only evaluation           0.072984 (2)
+  Jacobian & residual evaluation    17.392777 (2)
+  Linear solver                      0.057775 (2)
+Minimizer                           17.551851
+
+Postprocessor                        0.016626
+Total                               17.660661
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 6.548088e-10 <= 1.000000e-06)
+
+=== ICP Iteration 37 ===
+Total residuals added: 238698
+Translation after optimization: -0.000269196, 0.000777228, -0.00144857
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238698                   238698
+Residuals                              238698                   238698
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.070013e+02
+Final                            1.069989e+02
+Change                           2.408830e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.063472
+
+  Residual only evaluation           0.077319 (2)
+  Jacobian & residual evaluation    17.403813 (2)
+  Linear solver                      0.061102 (2)
+Minimizer                           17.563345
+
+Postprocessor                        0.012031
+Total                               17.638849
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 3.928785e-09 <= 1.000000e-06)
+
+=== ICP Iteration 38 ===
+Total residuals added: 238757
+Translation after optimization: -0.000192786, 0.000812151, -0.00137905
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238757                   238757
+Residuals                              238757                   238757
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.072977e+02
+Final                            1.072964e+02
+Change                           1.279846e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.072327
+
+  Residual only evaluation           0.067397 (2)
+  Jacobian & residual evaluation    17.814064 (2)
+  Linear solver                      0.048254 (2)
+Minimizer                           17.949229
+
+Postprocessor                        0.007721
+Total                               18.029278
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 8.947529e-10 <= 1.000000e-06)
+
+=== ICP Iteration 39 ===
+Total residuals added: 238709
+Translation after optimization: -0.000299829, 0.000836003, -0.00129441
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238709                   238709
+Residuals                              238709                   238709
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.072558e+02
+Final                            1.072543e+02
+Change                           1.417217e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.036153
+
+  Residual only evaluation           0.059512 (2)
+  Jacobian & residual evaluation    14.631287 (2)
+  Linear solver                      0.032027 (2)
+Minimizer                           14.734919
+
+Postprocessor                        0.008088
+Total                               14.779161
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 8.322968e-10 <= 1.000000e-06)
+
+=== ICP Iteration 40 ===
+Total residuals added: 238674
+Translation after optimization: -0.000542663, 0.000708053, -0.00131759
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238674                   238674
+Residuals                              238674                   238674
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.074720e+02
+Final                            1.074706e+02
+Change                           1.393770e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.034123
+
+  Residual only evaluation           0.067195 (2)
+  Jacobian & residual evaluation    15.418653 (2)
+  Linear solver                      0.041819 (2)
+Minimizer                           15.546150
+
+Postprocessor                        0.016592
+Total                               15.596865
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 4.212075e-10 <= 1.000000e-06)
+
+=== ICP Iteration 41 ===
+Total residuals added: 238611
+Translation after optimization: -0.000668505, 0.000529015, -0.00135551
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238611                   238611
+Residuals                              238611                   238611
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.076375e+02
+Final                            1.076360e+02
+Change                           1.453949e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.070939
+
+  Residual only evaluation           0.080961 (2)
+  Jacobian & residual evaluation    19.322263 (2)
+  Linear solver                      0.070349 (2)
+Minimizer                           19.497259
+
+Postprocessor                        0.019967
+Total                               19.588165
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 2.165254e-10 <= 1.000000e-06)
+
+=== ICP Iteration 42 ===
+Total residuals added: 238499
+Translation after optimization: -0.000453557, 0.000413271, -0.00132313
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238499                   238499
+Residuals                              238499                   238499
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.076667e+02
+Final                            1.076657e+02
+Change                           9.878214e-04
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.100666
+
+  Residual only evaluation           0.085736 (2)
+  Jacobian & residual evaluation    20.313963 (2)
+  Linear solver                      0.077870 (2)
+Minimizer                           20.510801
+
+Postprocessor                        0.014465
+Total                               20.625933
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 9.521867e-11 <= 1.000000e-06)
+
+=== ICP Iteration 43 ===
+Total residuals added: 238353
+Translation after optimization: -0.000181641, 0.000380813, -0.00142704
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238353                   238353
+Residuals                              238353                   238353
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.077429e+02
+Final                            1.077408e+02
+Change                           2.045770e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.087274
+
+  Residual only evaluation           0.113689 (2)
+  Jacobian & residual evaluation    20.209926 (2)
+  Linear solver                      0.098091 (2)
+Minimizer                           20.446298
+
+Postprocessor                        0.018105
+Total                               20.551677
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 2.382070e-10 <= 1.000000e-06)
+
+=== ICP Iteration 44 ===
+Total residuals added: 238318
+Translation after optimization: 0.000174476, 0.000338491, -0.00148347
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238318                   238318
+Residuals                              238318                   238318
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.077433e+02
+Final                            1.077413e+02
+Change                           2.048445e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.080440
+
+  Residual only evaluation           0.101056 (2)
+  Jacobian & residual evaluation    19.582785 (2)
+  Linear solver                      0.104729 (2)
+Minimizer                           19.812992
+
+Postprocessor                        0.021525
+Total                               19.914958
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.226449e-10 <= 1.000000e-06)
+
+=== ICP Iteration 45 ===
+Total residuals added: 238042
+Translation after optimization: 0.000743693, 0.000363905, -0.0013979
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        238042                   238042
+Residuals                              238042                   238042
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.073892e+02
+Final                            1.073845e+02
+Change                           4.732573e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.050218
+
+  Residual only evaluation           0.083651 (2)
+  Jacobian & residual evaluation    18.194708 (2)
+  Linear solver                      0.076563 (2)
+Minimizer                           18.372487
+
+Postprocessor                        0.011354
+Total                               18.434059
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.286599e-09 <= 1.000000e-06)
+
+=== ICP Iteration 46 ===
+Total residuals added: 237731
+Translation after optimization: 0.001247, 0.00041945, -0.00141437
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        237731                   237731
+Residuals                              237731                   237731
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.071112e+02
+Final                            1.071055e+02
+Change                           5.665652e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.081621
+
+  Residual only evaluation           0.082508 (2)
+  Jacobian & residual evaluation    18.105982 (2)
+  Linear solver                      0.074065 (2)
+Minimizer                           18.286238
+
+Postprocessor                        0.013613
+Total                               18.381472
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 4.017551e-09 <= 1.000000e-06)
+
+=== ICP Iteration 47 ===
+Total residuals added: 237315
+Translation after optimization: 0.0011022, 0.000808385, -0.0014395
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        237315                   237315
+Residuals                              237315                   237315
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.072771e+02
+Final                            1.072687e+02
+Change                           8.409312e-03
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.091898
+
+  Residual only evaluation           0.077503 (2)
+  Jacobian & residual evaluation    17.085107 (2)
+  Linear solver                      0.070792 (2)
+Minimizer                           17.252938
+
+Postprocessor                        0.013151
+Total                               17.357988
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 6.675176e-09 <= 1.000000e-06)
+
+=== ICP Iteration 48 ===
+Total residuals added: 236971
+Translation after optimization: 0.000837275, 0.00117973, -0.00160171
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        236971                   236971
+Residuals                              236971                   236971
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.081348e+02
+Final                            1.081229e+02
+Change                           1.184257e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.062997
+
+  Residual only evaluation           0.079264 (2)
+  Jacobian & residual evaluation    18.003587 (2)
+  Linear solver                      0.079738 (2)
+Minimizer                           18.199735
+
+Postprocessor                        0.017340
+Total                               18.280073
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 1.048092e-08 <= 1.000000e-06)
+
+=== ICP Iteration 49 ===
+Total residuals added: 236353
+Translation after optimization: 0.00112112, 0.000889124, -0.00182002
+
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(7.6.1)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                            2                        2
+Parameters                                  6                        6
+Residual blocks                        236353                   236353
+Residuals                              236353                   236353
+
+Minimizer                        TRUST_REGION
+
+Dense linear algebra library            EIGEN 
+Trust region strategy     LEVENBERG_MARQUARDT
+                                        Given                     Used
+Linear solver                        DENSE_QR                 DENSE_QR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                        2
+
+Cost:
+Initial                          1.079119e+02
+Final                            1.078995e+02
+Change                           1.240063e-02
+
+Minimizer iterations                        2
+Successful steps                            2
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.067352
+
+  Residual only evaluation           0.072386 (2)
+  Jacobian & residual evaluation    17.060088 (2)
+  Linear solver                      0.067084 (2)
+Minimizer                           17.216785
+
+Postprocessor                        0.010029
+Total                               17.294166
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 8.683368e-09 <= 1.000000e-06)
+

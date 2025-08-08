@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -Wall -O3 -DNDEBUG CMakeFiles/bm.dir/src/main.cpp.o CMakeFiles/bm.dir/src/imageutils.cpp.o -o bm  -lpng16 

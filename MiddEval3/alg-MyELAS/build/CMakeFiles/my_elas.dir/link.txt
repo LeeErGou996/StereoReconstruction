@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -Wall CMakeFiles/my_elas.dir/src/main.cpp.o CMakeFiles/my_elas.dir/src/elas.cpp.o CMakeFiles/my_elas.dir/src/descriptor.cpp.o CMakeFiles/my_elas.dir/src/filter.cpp.o CMakeFiles/my_elas.dir/src/matrix.cpp.o CMakeFiles/my_elas.dir/src/triangle.cpp.o -o my_elas 

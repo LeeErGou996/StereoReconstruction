@@ -1,0 +1,1 @@
+/usr/bin/c++  -fopenmp CMakeFiles/testdisparityBM.dir/test/testdisparityBM.cpp.o CMakeFiles/testdisparityBM.dir/src/utils/imageutils.cpp.o -o testdisparityBM  /usr/lib/x86_64-linux-gnu/libpng.so 

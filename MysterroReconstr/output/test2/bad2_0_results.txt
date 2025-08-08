@@ -1,0 +1,16 @@
+=== BAD2.0 Metric Results for Dataset: test2 ===
+Generated on: Sun Aug  3 23:11:14 2025
+Format: filename | BAD2.0 (%)
+===============================================
+disparity_SGM_extended_range_fill_on.png | 89.27%
+disparity_ELAS_left_camera_file_no_fill.png | 99.67%
+disparity_ELAS_left_camera_file_sgm_fill.png | 59.41%
+disparity_ELAS_left_original_no_fill.png | 99.70%
+disparity_ELAS_left_original_sgm_fill.png | 99.57%
+disparity_ELAS_right_camera_file_no_fill.png | 99.14%
+disparity_ELAS_right_camera_file_sgm_fill.png | 89.30%
+disparity_ELAS_right_original_no_fill.png | 98.97%
+disparity_ELAS_right_original_sgm_fill.png | 99.11%
+===============================================
+Average BAD2.0: 92.68%
+Total files processed: 9

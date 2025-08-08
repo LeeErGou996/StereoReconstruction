@@ -1,0 +1,83 @@
+# 备份原来的run脚本
+cp alg-MyELAS/run alg-MyELAS/run.backup
+
+# 创建新的csh格式run脚本
+cat > alg-MyELAS/run << 'EOF'
+#!/bin/csh -f
+
+# runs MyELAS algorithm for MiddEval3 benchmark
+
+if ($#argv != 4) then
+  echo "usage: run <im0.png> <im1.png> <ndisp> <outdir>"
+  exit 1
+endif
+
+set im0 = $1
+set im1 = $2
+set ndisp = $3
+set outdir = $4
+
+# create output directory if it doesn't exist
+mkdir -p $outdir
+
+# temporary files for timing and logging
+set tmplog = tmp-myelas-log.txt
+set timelog = tmp-myelas-time.txt
+
+# get relative path to MyELAS executable
+set p = $0:h
+if ($p == $0) set p = .
+set p = $p/build
+
+# calculate maxdisp (MiddEval3 convention: maxdisp = ndisp - 1)
+@ maxdisp = $ndisp - 1
+
+echo "Running MyELAS algorithm..."
+echo "Left image: $im0"
+echo "Right image: $im1"  
+echo "Max disparity: $maxdisp"
+echo "Output directory: $outdir"
+
+# Run MyELAS with timing
+echo "Creating dense disparity map (with SGM hole filling)..."
+/usr/bin/time -f '%e' -o $timelog $p/my_elas $im0 $im1 $outdir/disp0.pfm $maxdisp > $tmplog
+
+# Check if output was created successfully
+if (! -f $outdir/disp0.pfm) then
+    echo "Error: Failed to create dense disparity map: $outdir/disp0.pfm"
+    cat $tmplog
+    exit 1
+endif
+
+# Create sparse disparity map (copy dense for now)
+echo "Creating sparse disparity map..."
+cp $outdir/disp0.pfm $outdir/disp0_s.pfm
+
+# Extract timing information
+if (-f $timelog) then
+    cp $timelog $outdir/time.txt
+else
+    echo "0.0" > $outdir/time.txt
+endif
+
+# Display results
+echo "MyELAS processing completed!"
+if (-f $outdir/time.txt) then
+    set runtime = `cat $outdir/time.txt`
+    echo "Runtime: ${runtime}s"
+endif
+
+# Display log output
+if (-f $tmplog) then
+    echo "Algorithm output:"
+    cat $tmplog
+endif
+
+# Clean up temporary files
+rm -f $tmplog $timelog
+
+echo "MyELAS run completed successfully!"
+EOF
+
+# 设置执行权限
+chmod +x alg-MyELAS/run
